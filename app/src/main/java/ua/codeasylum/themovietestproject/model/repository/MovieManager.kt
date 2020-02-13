@@ -6,6 +6,6 @@ import ua.codeasylum.themovietestproject.model.repository.movie.MovieCacheReposi
 import javax.inject.Inject
 
 @ActivityScope
-class MovieManager @Inject constructor(private var movieCacheRepository: MovieCacheRepository,
+class MovieManager constructor(private var movieCacheRepository: MovieCacheRepository,
                                        private var movieApiRepository: MovieApiRepository) : MovieManagerInterface {
 }

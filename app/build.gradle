@@ -29,7 +29,7 @@ android {
     buildTypes {
         buildTypes {
             all {
-                buildConfigField "String", "BASE_URL", "\"\""
+                buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
             }
             release {
                 minifyEnabled false

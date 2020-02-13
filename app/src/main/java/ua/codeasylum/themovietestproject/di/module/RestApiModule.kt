@@ -7,7 +7,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ua.codeasylum.themovietestproject.BuildConfig
+import ua.codeasylum.themovietestproject.base.service.GenreService
 import ua.codeasylum.themovietestproject.base.service.MovieService
+import ua.codeasylum.themovietestproject.base.service.PeopleService
 import ua.codeasylum.themovietestproject.di.scope.ApplicationScope
 
 @Module
@@ -27,4 +29,14 @@ class RestApiModule {
     @Provides
     fun provideMovieService(retrofit: Retrofit): MovieService =
         retrofit.create(MovieService::class.java)
+
+    @ApplicationScope
+    @Provides
+    fun provideGenreService(retrofit: Retrofit) : GenreService =
+        retrofit.create(GenreService::class.java)
+
+    @ApplicationScope
+    @Provides
+    fun providePeopleService(retrofit: Retrofit) : PeopleService =
+        retrofit.create(PeopleService::class.java)
 }
