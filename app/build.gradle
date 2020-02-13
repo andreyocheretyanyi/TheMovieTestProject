@@ -5,15 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
-
-apply plugin: 'realm-android'
-
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "ua.codeasylum.themovietestproject"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -40,7 +37,7 @@ android {
 
     dependencies {
 
-        def nav_version = "2.2.0"
+        def nav_version = "2.2.1"
         def lifecycle_version = "2.2.0"
         def retrofit_version = "2.7.1"
         def dagger_version = "2.26"
