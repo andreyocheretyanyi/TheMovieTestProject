@@ -5,6 +5,9 @@ import dagger.Component
 import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.di.module.AppModule
 import ua.codeasylum.themovietestproject.di.scope.ApplicationScope
+import ua.codeasylum.themovietestproject.model.repository.movie.MovieApiRepository
+import ua.codeasylum.themovietestproject.model.repository.movie.MovieCacheRepository
+
 
 @ApplicationScope
 @Component(
@@ -12,6 +15,10 @@ import ua.codeasylum.themovietestproject.di.scope.ApplicationScope
         AppModule::class]
 )
 interface ApplicationComponent {
+
+    fun app() : App
+    fun movieApiRepository() : MovieApiRepository
+    fun movieCacheRepository() : MovieCacheRepository
 
     @Component.Builder
     interface Builder{
@@ -22,5 +29,4 @@ interface ApplicationComponent {
         fun build () : ApplicationComponent
     }
 
-    fun inject(app: App)
 }
