@@ -8,7 +8,8 @@ import ua.codeasylum.themovietestproject.di.scope.ApplicationScope
 import ua.codeasylum.themovietestproject.model.repository.genre.GenreApiRepository
 import ua.codeasylum.themovietestproject.model.repository.genre.GenreCacheRepository
 import ua.codeasylum.themovietestproject.model.repository.movie.MovieApiRepository
-import ua.codeasylum.themovietestproject.model.repository.movie.MovieCacheRepository
+import ua.codeasylum.themovietestproject.model.repository.people.PeopleApiRepository
+import ua.codeasylum.themovietestproject.model.repository.people.PeopleCacheRepository
 
 
 @ApplicationScope
@@ -20,9 +21,10 @@ interface ApplicationComponent {
 
     fun app() : App
     fun movieApiRepository() : MovieApiRepository
-    fun movieCacheRepository() : MovieCacheRepository
     fun genreApiReository() : GenreApiRepository
     fun genreCacheRepository() : GenreCacheRepository
+    fun peopleApiRepository() : PeopleApiRepository
+    fun peopleCacheRepository() : PeopleCacheRepository
 
     @Component.Builder
     interface Builder{

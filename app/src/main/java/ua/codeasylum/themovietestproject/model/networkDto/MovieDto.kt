@@ -6,7 +6,7 @@ data class MovieDto(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")
-    val results: List<MoviesResult> = listOf(),
+    var results: List<MoviesResult> = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")

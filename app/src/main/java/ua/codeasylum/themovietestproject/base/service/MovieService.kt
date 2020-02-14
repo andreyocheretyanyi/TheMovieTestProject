@@ -1,7 +1,9 @@
 package ua.codeasylum.themovietestproject.base.service
 
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ua.codeasylum.themovietestproject.model.networkDto.MovieDto
 
 interface MovieService {
 
@@ -10,7 +12,7 @@ interface MovieService {
         @Query("api_key") apiKey: String, @Query("include_adult") includeAdult: Boolean,
         @Query("page") page: Int, @Query("year") year: Int, @Query("with_genres") genres: String,
         @Query("with_people") people: String
-    )
+    ) : Single<MovieDto>
 
     @GET("search/movie")
     fun searchMovie(
@@ -19,6 +21,6 @@ interface MovieService {
             encoded = true
         ) query: String, @Query("page") page: Int,
         @Query("include_adult") includeAdult: Boolean, @Query("year") year: Int
-    )
+    ) : Single<MovieDto>
 
 }
