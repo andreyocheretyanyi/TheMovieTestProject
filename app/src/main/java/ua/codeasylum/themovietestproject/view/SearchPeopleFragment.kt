@@ -33,4 +33,14 @@ class SearchPeopleFragment : BaseFragment() {
             )[SearchViewModel::class.java]
             viewModel = searchViewModel
         }.root
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        searchViewModel.subscribeTextChange()
+        searchViewModel.enteredPersonName.observe(
+            this.viewLifecycleOwner,
+            searchViewModel.enteredPersonNameObserver
+        )
+    }
 }

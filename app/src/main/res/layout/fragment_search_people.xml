@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="androidx.databinding.adapters.TextViewBindingAdapter" />
+
         <variable
             name="viewModel"
             type="ua.codeasylum.themovietestproject.viewmodel.SearchViewModel" />
@@ -15,6 +17,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:text="@={viewModel.enteredPersonName}"
             android:id="@+id/et_person_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +36,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_person_name" />
+            app:layout_constraintTop_toBottomOf="@+id/et_person_name"
+            app:parentViewModel="@{viewModel}"
+            app:people="@{viewModel.foundPeople}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

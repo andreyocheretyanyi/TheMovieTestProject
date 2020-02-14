@@ -13,6 +13,8 @@ import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 class SelectGenresFragment : BaseFragment() {
 
+    private lateinit var searchViewModel: SearchViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,9 +26,15 @@ class SelectGenresFragment : BaseFragment() {
         false
     ).apply {
         lifecycleOwner = this@SelectGenresFragment.viewLifecycleOwner
-        viewModel =
+        searchViewModel =
             ViewModelProvider(activity!!.viewModelStore, factory)[SearchViewModel::class.java]
+        viewModel = searchViewModel
 
     }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        searchViewModel.fetchGenres()
+    }
 
 }

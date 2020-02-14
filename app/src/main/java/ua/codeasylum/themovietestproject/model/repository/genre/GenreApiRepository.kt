@@ -1,5 +1,6 @@
 package ua.codeasylum.themovietestproject.model.repository.genre
 
+import android.util.Log
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +17,7 @@ class GenreApiRepository @Inject constructor(private val genreService: GenreServ
     override fun getGenres(): Single<GenreDto> =
         genreService.getGenres(BuildConfig.API_KEY)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    
 
 
 }

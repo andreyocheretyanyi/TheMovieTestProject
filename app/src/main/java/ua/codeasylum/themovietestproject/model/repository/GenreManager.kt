@@ -14,11 +14,12 @@ class GenreManager constructor(
 
     override fun fetchGenres(): Single<GenreDto> =
         genreCacheRepository.getGenres()
-            .flatMap {
+            .flatMap { it ->
                 if (it.genres.isEmpty())
                     genreApiRepository.getGenres()
-                        .doOnDispose {
+                        .map {
                             genreCacheRepository.save(it)
+                            return@map it
                         }
                 else Single.just(it)
             }
