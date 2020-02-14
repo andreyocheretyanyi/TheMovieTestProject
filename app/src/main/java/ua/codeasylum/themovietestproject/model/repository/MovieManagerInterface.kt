@@ -8,7 +8,7 @@ interface MovieManagerInterface {
     fun fetchMoviesByAgruments(
         query: String, includeAdult: Boolean,
         page: Int,
-        year: Int,
+        year: Int?,
         genres: String,
         people: String
     ): Single<MovieDto>

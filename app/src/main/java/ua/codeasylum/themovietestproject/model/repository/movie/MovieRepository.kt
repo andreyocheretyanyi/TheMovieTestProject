@@ -6,12 +6,12 @@ import ua.codeasylum.themovietestproject.model.networkDto.MovieDto
 interface MovieRepository {
 
 
-    fun searchMovies(query: String, page: Int, includeAdult: Boolean, year: Int): Single<MovieDto>
+    fun searchMovies(query: String, page: Int, includeAdult: Boolean, year: Int?): Single<MovieDto>
 
     fun discoverMovies(
         includeAdult: Boolean,
         page: Int,
-        year: Int,
+        year: Int?,
         genres: String,
         people: String
     ): Single<MovieDto>

@@ -14,11 +14,11 @@ class MovieManager constructor(
         query: String,
         includeAdult: Boolean,
         page: Int,
-        year: Int,
+        year: Int?,
         genres: String,
         people: String
     ): Single<MovieDto> =
-        if (genres.isEmpty() && people.isEmpty())
+        if (genres.isEmpty() && people.isEmpty() && query.isNotEmpty())
             movieApiRepository.searchMovies(query, page, includeAdult, year)
         else movieApiRepository.discoverMovies(includeAdult, page, year, genres, people)
             .map { filterMoviesByName(query, it) }
@@ -27,7 +27,8 @@ class MovieManager constructor(
         val resultList = ArrayList<MoviesResult>()
         for (movieResult: MoviesResult in dto.results) {
             if (movieResult.title.contains(name, false) ||
-                movieResult.originalTitle.contains(name, false))
+                movieResult.originalTitle.contains(name, false)
+            )
                 resultList.add(movieResult)
         }
         if (resultList.isNotEmpty())

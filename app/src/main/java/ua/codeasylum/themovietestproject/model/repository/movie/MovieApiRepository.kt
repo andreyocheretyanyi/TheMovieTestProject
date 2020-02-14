@@ -16,7 +16,7 @@ class MovieApiRepository @Inject constructor(private val movieService: MovieServ
         query: String,
         page: Int,
         includeAdult: Boolean,
-        year: Int
+        year: Int?
     ): Single<MovieDto> =
         movieService.searchMovie(BuildConfig.API_KEY, query, page, includeAdult, year)
             .subscribeOn(Schedulers.io())
@@ -25,7 +25,7 @@ class MovieApiRepository @Inject constructor(private val movieService: MovieServ
     override fun discoverMovies(
         includeAdult: Boolean,
         page: Int,
-        year: Int,
+        year: Int?,
         genres: String,
         people: String
     ): Single<MovieDto> =

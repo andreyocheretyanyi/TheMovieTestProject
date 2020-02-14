@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TheMovieTestProject</string>
+    <string name="fill_in_at_least_one_field">Fill in at least one field</string>
+    <string name="enter_year_e_g_1995">Enter year (e.g. 1995)</string>
+    <string name="enter_the_film_name_or_title">Enter the film name or title</string>
+    <string name="click_to_select_genres">Click to select genres</string>
+    <string name="select_genres">Select genres</string>
+    <string name="select">Select</string>
+    <string name="clear">Clear</string>
 </resources>

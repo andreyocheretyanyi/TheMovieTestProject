@@ -1,6 +1,5 @@
 package ua.codeasylum.themovietestproject
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ua.codeasylum.themovietestproject.base.BaseActivity
 

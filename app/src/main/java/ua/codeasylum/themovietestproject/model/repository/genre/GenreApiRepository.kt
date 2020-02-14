@@ -14,7 +14,8 @@ class GenreApiRepository @Inject constructor(private val genreService: GenreServ
     GenreRepository {
 
     override fun getGenres(): Single<GenreDto> =
-        genreService.getGenres(BuildConfig.API_KEY).subscribeOn(Schedulers.io())
+        genreService.getGenres(BuildConfig.API_KEY)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
 

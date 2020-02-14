@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigator"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ua.codeasylum.themovietestproject.view.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_searchPeopleFragment"
+            app:destination="@id/searchPeopleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="ua.codeasylum.themovietestproject.view.SearchResultFragment"
+        android:label="SearchResultFragment" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="ua.codeasylum.themovietestproject.view.MovieDetailFragment"
+        android:label="MovieDetailFragment" />
+    <fragment
+        android:id="@+id/searchPeopleFragment"
+        android:name="ua.codeasylum.themovietestproject.view.SearchPeopleFragment"
+        android:label="SearchPeopleFragment" />
+</navigation>
