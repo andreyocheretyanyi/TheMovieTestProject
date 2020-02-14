@@ -7,10 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ua.codeasylum.themovietestproject.databinding.ItemGenreBinding
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
-import ua.codeasylum.themovietestproject.view.dialog.GenresDialog
+import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 class GenreRecyclerAdapter(
-    private val parent: GenresDialog,
+    private val parentViewModel: SearchViewModel,
     private val selectedGenres: MutableList<Genre>,
     val genres: MutableList<Genre>
 ) : RecyclerView.Adapter<GenreViewHolder>() {
@@ -29,7 +29,7 @@ class GenreRecyclerAdapter(
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
         holder.binding!!.genre = genres[position]
         holder.binding.selected = isGenreSelected(genres[position])
-        holder.binding.parent = parent
+        holder.binding.parentViewModel = parentViewModel
         holder.binding.executePendingBindings()
     }
 

@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
 import ua.codeasylum.themovietestproject.databinding.FragmentSearchMoviesBinding
-import ua.codeasylum.themovietestproject.view.dialog.GenresDialog
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 class SearchFragment : BaseFragment() {
@@ -21,33 +21,38 @@ class SearchFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        searchViewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
-        return DataBindingUtil.inflate<FragmentSearchMoviesBinding>(
-            inflater,
-            R.layout.fragment_search_movies,
-            container,
-            false
-        ).apply {
-            lifecycleOwner = this@SearchFragment.viewLifecycleOwner
-            viewModel = searchViewModel
-            this@SearchFragment.viewLifecycleOwner.lifecycle.addObserver(searchViewModel)
-            showDialogHandler = this@SearchFragment
-        }.root
-    }
+    ): View? = DataBindingUtil.inflate<FragmentSearchMoviesBinding>(
+        inflater,
+        R.layout.fragment_search_movies,
+        container,
+        false
+    ).apply {
+        searchViewModel =
+            ViewModelProvider(activity!!.viewModelStore, factory)[SearchViewModel::class.java]
+        lifecycleOwner = this@SearchFragment.viewLifecycleOwner
+        viewModel = searchViewModel
+        this@SearchFragment.viewLifecycleOwner.lifecycle.addObserver(searchViewModel)
+        showDialogHandler = this@SearchFragment
+    }.root
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchViewModel.showDialog.observe(this.viewLifecycleOwner, Observer {
-            if (it) showGenresDialog()
+        searchViewModel.openSelectGenre.observe(this.viewLifecycleOwner, Observer {
+            if (it) {
+                findNavController().navigate(R.id.action_searchFragment_to_selectGenresFragment)
+                searchViewModel.openSelectGenre.value = false
+            }
+
+        })
+        searchViewModel.openPersonSearch.observe(this.viewLifecycleOwner, Observer {
+            if (it) {
+                searchViewModel.openPersonSearch.value = false
+                findNavController().navigate(R.id.action_searchFragment_to_searchPeopleFragment)
+            }
         })
     }
 
 
-    private fun showGenresDialog() {
-        GenresDialog(searchViewModel).show(
-            childFragmentManager,
-            GenresDialog::class.java.simpleName
-        )
-    }
+
 }

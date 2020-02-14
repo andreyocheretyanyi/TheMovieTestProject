@@ -12,7 +12,11 @@
             app:destination="@id/searchResultFragment" />
         <action
             android:id="@+id/action_searchFragment_to_searchPeopleFragment"
-            app:destination="@id/searchPeopleFragment" />
+            app:destination="@id/searchPeopleFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_searchFragment_to_selectGenresFragment"
+            app:destination="@id/selectGenresFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
@@ -30,4 +34,8 @@
         android:id="@+id/searchPeopleFragment"
         android:name="ua.codeasylum.themovietestproject.view.SearchPeopleFragment"
         android:label="SearchPeopleFragment" />
+    <fragment
+        android:id="@+id/selectGenresFragment"
+        android:name="ua.codeasylum.themovietestproject.view.SelectGenresFragment"
+        android:label="SelectGenresFragment" />
 </navigation>

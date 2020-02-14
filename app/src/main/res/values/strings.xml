@@ -7,4 +7,6 @@
     <string name="select_genres">Select genres</string>
     <string name="select">Select</string>
     <string name="clear">Clear</string>
+    <string name="enter_name">Enter name</string>
+    <string name="click_to_select_person">Click to select person</string>
 </resources>

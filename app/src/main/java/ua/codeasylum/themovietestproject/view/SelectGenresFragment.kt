@@ -8,29 +8,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
-import ua.codeasylum.themovietestproject.databinding.FragmentSearchPeopleBinding
+import ua.codeasylum.themovietestproject.databinding.FragmentSelectGenresBinding
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
-class SearchPeopleFragment : BaseFragment() {
-
-    lateinit var searchViewModel: SearchViewModel
+class SelectGenresFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = DataBindingUtil.inflate<FragmentSearchPeopleBinding>(
+    ): View? = DataBindingUtil.inflate<FragmentSelectGenresBinding>(
         inflater,
-        R.layout.fragment_search_people,
+        R.layout.fragment_select_genres,
         container,
         false
-    )
-        .apply {
-            lifecycleOwner = this@SearchPeopleFragment.viewLifecycleOwner
-            searchViewModel = ViewModelProvider(
-                activity!!.viewModelStore,
-                factory
-            )[SearchViewModel::class.java]
-            viewModel = searchViewModel
-        }.root
+    ).apply {
+        lifecycleOwner = this@SelectGenresFragment.viewLifecycleOwner
+        viewModel =
+            ViewModelProvider(activity!!.viewModelStore, factory)[SearchViewModel::class.java]
+
+    }.root
+
 }

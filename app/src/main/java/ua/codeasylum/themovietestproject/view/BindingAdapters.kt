@@ -5,20 +5,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.view.adapter.GenreRecyclerAdapter
-import ua.codeasylum.themovietestproject.view.dialog.GenresDialog
+import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 object BindingAdapters {
     @JvmStatic
-    @BindingAdapter("app:parent", "app:selectedGenres", "app:genres", requireAll = true)
+    @BindingAdapter("app:parentViewModel", "app:selectedGenres", "app:genres", requireAll = true)
     fun bindGenres(
         recyclerView: RecyclerView,
-        dialog: GenresDialog,
+        viewModel : SearchViewModel,
         selectedGenres: MutableList<Genre>,
         genres: MutableList<Genre>
     ) {
         with(recyclerView) {
             if (this.adapter == null) {
-                adapter = GenreRecyclerAdapter(dialog, selectedGenres, genres)
+                adapter = GenreRecyclerAdapter(viewModel, selectedGenres, genres)
                 recyclerView.layoutManager =
                     LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
             }

@@ -13,14 +13,14 @@
             type="Boolean" />
 
         <variable
-            name="parent"
-            type="ua.codeasylum.themovietestproject.view.dialog.GenresDialog" />
+            name="parentViewModel"
+            type="ua.codeasylum.themovietestproject.viewmodel.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> parent.onSelectSingleGenre(genre)}"
+        android:onClick="@{() -> parentViewModel.onSelectSingleGenre(genre)}"
         android:orientation="vertical">
 
         <TextView
@@ -38,12 +38,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
-            android:focusable="false"
-            android:clickable="false"
             android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="@{selected}"
+            android:clickable="false"
+            android:focusable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

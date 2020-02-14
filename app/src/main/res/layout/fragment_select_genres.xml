@@ -4,11 +4,7 @@
     <data>
 
         <variable
-            name="dialog"
-            type="ua.codeasylum.themovietestproject.view.dialog.GenresDialog" />
-
-        <variable
-            name="delegateViewModel"
+            name="viewModel"
             type="ua.codeasylum.themovietestproject.viewmodel.SearchViewModel" />
 
 
@@ -23,39 +19,38 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:genres="@{delegateViewModel.allGenres}"
-            app:layout_constraintBottom_toTopOf="@+id/button_ok"
+            app:genres="@{viewModel.allGenres}"
+            app:parentViewModel="@{viewModel}"
+            app:layout_constraintBottom_toTopOf="@+id/button_clear"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:parent="@{dialog}"
-            app:selectedGenres="@{delegateViewModel.selectedGenres}" />
+            app:selectedGenres="@{viewModel.selectedGenres}" />
 
 
         <Button
+            android:onClick="@{() -> viewModel.clearGenresClick()}"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="8dp"
             android:id="@+id/button_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> dialog.clearClick()}"
             android:text="@string/clear"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_ok" />
+            app:layout_constraintHorizontal_bias="0.5"/>
 
 
-        <Button
-            android:layout_marginBottom="8dp"
-            android:id="@+id/button_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> dialog.selectAndExitClick()}"
-            android:text="@string/select"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_clear"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+<!--        <Button-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            android:id="@+id/button_ok"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/select"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/button_clear"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
