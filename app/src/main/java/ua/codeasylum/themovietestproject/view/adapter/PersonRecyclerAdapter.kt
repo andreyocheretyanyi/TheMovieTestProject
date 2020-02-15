@@ -8,11 +8,11 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ua.codeasylum.themovietestproject.databinding.ItemPersonBinding
-import ua.codeasylum.themovietestproject.model.networkDto.PeopleResult
+import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 class PeopleRecyclerAdapter(val parentViewModel: SearchViewModel) :
-    PagedListAdapter<PeopleResult, PeopleViewHolder>(
+    PagedListAdapter<Person, PeopleViewHolder>(
         UserDiffCallback
     ) {
 
@@ -26,16 +26,20 @@ class PeopleRecyclerAdapter(val parentViewModel: SearchViewModel) :
 
 
     override fun onBindViewHolder(holder: PeopleViewHolder, position: Int) {
-        holder.personBinding?.person = getItem(position)
+        holder.personBinding?.apply {
+            person = getItem(position)
+            parentViewModel = this@PeopleRecyclerAdapter.parentViewModel
+        }
+
     }
 
     companion object {
-        val UserDiffCallback = object : DiffUtil.ItemCallback<PeopleResult>() {
-            override fun areItemsTheSame(oldItem: PeopleResult, newItem: PeopleResult): Boolean =
+        val UserDiffCallback = object : DiffUtil.ItemCallback<Person>() {
+            override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean =
                 oldItem.id == newItem.id
 
 
-            override fun areContentsTheSame(oldItem: PeopleResult, newItem: PeopleResult): Boolean =
+            override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean =
                 oldItem == newItem
 
 

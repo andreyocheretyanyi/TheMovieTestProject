@@ -11,7 +11,7 @@ import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.base.notifyObserver
 import ua.codeasylum.themovietestproject.model.dataSource.PeopleDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
-import ua.codeasylum.themovietestproject.model.networkDto.PeopleResult
+import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.GenreManagerInterface
 import ua.codeasylum.themovietestproject.model.repository.PeopleManagerInterface
 import java.util.concurrent.TimeUnit
@@ -30,23 +30,32 @@ class SearchViewModel @Inject constructor(
     }
     private lateinit var genresDisposable: Disposable
     private lateinit var peopleDisposable: Disposable
-    private val genresQuery: MutableLiveData<String> = MutableLiveData()
+
+    private val genresQuery by lazy {
+        MutableLiveData("")
+    }
+    private val personQuery by lazy {
+        MutableLiveData("")
+    }
     private val searchPublishSubject by lazy {
         PublishSubject.create<String>()
     }
     private lateinit var peoplerDataSourceFactory: PeopleDataSourceFactory
 
 
-    val query: MutableLiveData<String> = MutableLiveData("")
-    val year: MutableLiveData<String> = MutableLiveData("")
-    val selectedGenres: MutableLiveData<MutableList<Genre>> = MutableLiveData(mutableListOf())
-    val genresText: MutableLiveData<String> = MutableLiveData()
+    val query = MutableLiveData("")
+    val year = MutableLiveData("")
+    val selectedPersonName = MutableLiveData("")
+    val openSelectGenre = MutableLiveData(false)
+    val openPersonSearch = MutableLiveData(false)
+    val genresText = MutableLiveData("")
     val allGenres: MutableLiveData<MutableList<Genre>> = MutableLiveData(mutableListOf())
-    val openSelectGenre: MutableLiveData<Boolean> = MutableLiveData(false)
-    val openPersonSearch: MutableLiveData<Boolean> = MutableLiveData(false)
-    var foundPeople: LiveData<PagedList<PeopleResult>> = MutableLiveData()
-    val enteredPersonName: MutableLiveData<String> = MutableLiveData("")
+    val selectedGenres: MutableLiveData<MutableList<Genre>> = MutableLiveData(mutableListOf())
+    var foundPeople: LiveData<PagedList<Person>> = MutableLiveData()
+    val personSearchedName = MutableLiveData("")
     val haveToNotifyPeopleBindingAdapter = MutableLiveData(1)
+    val closeSearchPersonFragment = MutableLiveData(false)
+    val closeSelectGenreFragment = MutableLiveData(false)
 
 
     fun onSearchClick() {
@@ -78,7 +87,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun observeEnteredPersonName(): Observer<String> = Observer {
-        val name = enteredPersonName.value ?: ""
+        val name = personSearchedName.value ?: ""
         if (name.isNotEmpty())
             searchPublishSubject
                 .onNext(name)
@@ -97,6 +106,10 @@ class SearchViewModel @Inject constructor(
         genresQuery.value = ""
         selectedGenres.value?.clear()
         selectedGenres.notifyObserver()
+    }
+
+    fun onButtonSelectGenreClick() {
+        closeSelectGenreFragment.value = true
     }
 
 
@@ -121,7 +134,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun subscribeTextChange() {
+    fun subscribePersonSearchTextChange() {
 
         if (::peopleDisposable.isInitialized && !peopleDisposable.isDisposed)
             peopleDisposable.dispose()
@@ -130,14 +143,14 @@ class SearchViewModel @Inject constructor(
             .debounce(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                initFactory(it)
+                initPersonDataSourceFactory(it)
             }, {
                 Log.d("", it.toString())
             })
 
     }
 
-    private fun initFactory(name: String) {
+    private fun initPersonDataSourceFactory(name: String) {
         if (::peoplerDataSourceFactory.isInitialized)
             peoplerDataSourceFactory.name = name
         else
@@ -148,9 +161,15 @@ class SearchViewModel @Inject constructor(
             .setEnablePlaceholders(false)
             .build()
         foundPeople =
-            LivePagedListBuilder<Int, PeopleResult>(peoplerDataSourceFactory, config).build()
+            LivePagedListBuilder<Int, Person>(peoplerDataSourceFactory, config).build()
         haveToNotifyPeopleBindingAdapter.notifyObserver()
 
+    }
+
+    fun personSelected(person: Person) {
+        selectedPersonName.value = person.name
+        personQuery.value = person.id.toString()
+        closeSearchPersonFragment.value = true
     }
 
 }

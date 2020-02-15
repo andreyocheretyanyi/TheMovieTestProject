@@ -8,7 +8,6 @@ import ua.codeasylum.themovietestproject.model.repository.genre.GenreApiReposito
 import ua.codeasylum.themovietestproject.model.repository.genre.GenreCacheRepository
 import ua.codeasylum.themovietestproject.model.repository.movie.MovieApiRepository
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleApiRepository
-import ua.codeasylum.themovietestproject.model.repository.people.PeopleCacheRepository
 
 @Module
 class RepositoryModule {
@@ -29,7 +28,6 @@ class RepositoryModule {
     @ActivityScope
     @Provides
     fun providePeopleManager(
-        peopleApiRepository: PeopleApiRepository,
-        peopleCacheRepository: PeopleCacheRepository
-    ): PeopleManagerInterface = PeopleManager(peopleApiRepository, peopleCacheRepository)
+        peopleApiRepository: PeopleApiRepository
+    ): PeopleManagerInterface = PeopleManager(peopleApiRepository)
 }

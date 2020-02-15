@@ -5,7 +5,7 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
-import ua.codeasylum.themovietestproject.model.networkDto.PeopleResult
+import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.view.adapter.GenreRecyclerAdapter
 import ua.codeasylum.themovietestproject.view.adapter.PeopleRecyclerAdapter
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
@@ -31,12 +31,12 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("app:parentViewModel", "app:people","app:haveToNotify", requireAll = true)
+    @BindingAdapter("app:parentViewModel", "app:people", "app:haveToNotify", requireAll = true)
     fun bindPeople(
         recyclerView: RecyclerView,
         parentViewModel: SearchViewModel,
-        pagedList: PagedList<PeopleResult>?,
-        haveToNotify : Int
+        pagedList: PagedList<Person>?,
+        haveToNotify: Int
     ) {
         with(recyclerView) {
             if (this.adapter == null) {

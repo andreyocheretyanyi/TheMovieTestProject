@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
 import ua.codeasylum.themovietestproject.databinding.FragmentSelectGenresBinding
@@ -35,6 +37,12 @@ class SelectGenresFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchViewModel.fetchGenres()
+        searchViewModel.closeSelectGenreFragment.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                searchViewModel.closeSelectGenreFragment.value = false
+                findNavController().navigateUp()
+            }
+        })
     }
 
 }

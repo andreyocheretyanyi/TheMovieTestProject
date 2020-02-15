@@ -32,7 +32,7 @@
         android:label="MovieDetailFragment" />
     <fragment
         android:id="@+id/searchPeopleFragment"
-        android:name="ua.codeasylum.themovietestproject.view.SearchPeopleFragment"
+        android:name="ua.codeasylum.themovietestproject.view.SearchPersonFragment"
         android:label="SearchPeopleFragment" />
     <fragment
         android:id="@+id/selectGenresFragment"

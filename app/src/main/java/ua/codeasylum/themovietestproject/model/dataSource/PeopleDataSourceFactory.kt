@@ -2,11 +2,11 @@ package ua.codeasylum.themovietestproject.model.dataSource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import ua.codeasylum.themovietestproject.model.networkDto.PeopleResult
+import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.PeopleManagerInterface
 
 class PeopleDataSourceFactory(private val peopleManager: PeopleManagerInterface, name: String) :
-    DataSource.Factory<Int, PeopleResult>() {
+    DataSource.Factory<Int, Person>() {
 
     private lateinit var peopleDataSource: PeopleDataSource
     var name = name
@@ -19,7 +19,7 @@ class PeopleDataSourceFactory(private val peopleManager: PeopleManagerInterface,
 
     val dataSourceLiveData = MutableLiveData<PeopleDataSource>()
 
-    override fun create(): DataSource<Int, PeopleResult> {
+    override fun create(): DataSource<Int, Person> {
         val dataSource = PeopleDataSource(peopleManager, name)
         dataSourceLiveData.postValue(dataSource)
         return dataSource

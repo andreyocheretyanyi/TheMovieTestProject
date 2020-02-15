@@ -31,7 +31,6 @@ class SearchFragment : BaseFragment() {
             ViewModelProvider(activity!!.viewModelStore, factory)[SearchViewModel::class.java]
         lifecycleOwner = this@SearchFragment.viewLifecycleOwner
         viewModel = searchViewModel
-        showDialogHandler = this@SearchFragment
     }.root
 
 
@@ -51,7 +50,6 @@ class SearchFragment : BaseFragment() {
             }
         })
     }
-
 
 
 }

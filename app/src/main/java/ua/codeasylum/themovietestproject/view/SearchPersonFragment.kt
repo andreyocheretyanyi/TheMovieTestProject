@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
 import ua.codeasylum.themovietestproject.databinding.FragmentSearchPeopleBinding
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
-class SearchPeopleFragment : BaseFragment() {
+class SearchPersonFragment : BaseFragment() {
 
     lateinit var searchViewModel: SearchViewModel
 
@@ -26,7 +30,7 @@ class SearchPeopleFragment : BaseFragment() {
         false
     )
         .apply {
-            lifecycleOwner = this@SearchPeopleFragment.viewLifecycleOwner
+            lifecycleOwner = this@SearchPersonFragment.viewLifecycleOwner
             searchViewModel = ViewModelProvider(
                 activity!!.viewModelStore,
                 factory
@@ -37,10 +41,17 @@ class SearchPeopleFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchViewModel.subscribeTextChange()
-        searchViewModel.enteredPersonName.observe(
+        searchViewModel.subscribePersonSearchTextChange()
+        searchViewModel.personSearchedName.observe(
             this.viewLifecycleOwner,
             searchViewModel.enteredPersonNameObserver
         )
+        searchViewModel.closeSearchPersonFragment.observe(viewLifecycleOwner, Observer {
+            if(it){
+                searchViewModel.closeSearchPersonFragment.value = false
+//                activity!!.findNavController(R.id.nav_host_fragment).navigateUp()
+                findNavController().navigateUp()
+            }
+        })
     }
 }

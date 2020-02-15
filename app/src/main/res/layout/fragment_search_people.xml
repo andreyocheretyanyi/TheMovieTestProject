@@ -23,7 +23,7 @@
             android:layout_margin="8dp"
             android:hint="@string/enter_name"
             android:inputType="textAutoComplete"
-            android:text="@={viewModel.enteredPersonName}"
+            android:text="@={viewModel.personSearchedName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
