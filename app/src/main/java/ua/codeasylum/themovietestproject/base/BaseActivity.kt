@@ -18,7 +18,8 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityComponent = DaggerActivityComponent
             .builder()
-            .applicationComponent((application as App).appComponent)
+            .withAppComponent((application as App).appComponent)
+            .withActivity(this)
             .build()
     }
 }

@@ -34,22 +34,5 @@ class SearchFragment : BaseFragment() {
     }.root
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        searchViewModel.openSelectGenre.observe(this.viewLifecycleOwner, Observer {
-            if (it) {
-                findNavController().navigate(R.id.action_searchFragment_to_selectGenresFragment)
-                searchViewModel.openSelectGenre.value = false
-            }
-
-        })
-        searchViewModel.openPersonSearch.observe(this.viewLifecycleOwner, Observer {
-            if (it) {
-                searchViewModel.openPersonSearch.value = false
-                findNavController().navigate(R.id.action_searchFragment_to_searchPeopleFragment)
-            }
-        })
-    }
-
 
 }

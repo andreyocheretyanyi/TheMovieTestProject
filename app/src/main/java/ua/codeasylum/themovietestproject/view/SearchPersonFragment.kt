@@ -46,12 +46,5 @@ class SearchPersonFragment : BaseFragment() {
             this.viewLifecycleOwner,
             searchViewModel.enteredPersonNameObserver
         )
-        searchViewModel.closeSearchPersonFragment.observe(viewLifecycleOwner, Observer {
-            if(it){
-                searchViewModel.closeSearchPersonFragment.value = false
-//                activity!!.findNavController(R.id.nav_host_fragment).navigateUp()
-                findNavController().navigateUp()
-            }
-        })
     }
 }

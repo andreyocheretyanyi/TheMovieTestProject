@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.di.scope.ApplicationScope
+import javax.inject.Named
 
 @Module(
     includes = [
@@ -13,6 +14,7 @@ import ua.codeasylum.themovietestproject.di.scope.ApplicationScope
 )
 class AppModule {
 
+    @Named("appContext")
     @ApplicationScope
     @Provides
     fun provideContext(app: App): Context = app.applicationContext

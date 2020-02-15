@@ -67,6 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/et_film_title" />
 
         <TextView
+            android:id="@+id/tv_select_person"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +79,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_genres" />
+
+        <CheckBox
+            android:checked="@={viewModel.isAdult}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_select_person"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/with_adult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:layout_width="wrap_content"

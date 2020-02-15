@@ -37,12 +37,6 @@ class SelectGenresFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchViewModel.fetchGenres()
-        searchViewModel.closeSelectGenreFragment.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                searchViewModel.closeSelectGenreFragment.value = false
-                findNavController().navigateUp()
-            }
-        })
     }
 
 }

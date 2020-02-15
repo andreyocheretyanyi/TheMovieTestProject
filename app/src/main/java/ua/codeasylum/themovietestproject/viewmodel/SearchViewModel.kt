@@ -2,12 +2,15 @@ package ua.codeasylum.themovietestproject.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import ua.codeasylum.themovietestproject.App
+import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.notifyObserver
 import ua.codeasylum.themovietestproject.model.dataSource.PeopleDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
@@ -21,7 +24,8 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     app: App,
     private val genreManager: GenreManagerInterface,
-    private val peopleManager: PeopleManagerInterface
+    private val peopleManager: PeopleManagerInterface,
+    private val navController: NavController
 ) : AndroidViewModel(app) {
 
 
@@ -54,8 +58,7 @@ class SearchViewModel @Inject constructor(
     var foundPeople: LiveData<PagedList<Person>> = MutableLiveData()
     val personSearchedName = MutableLiveData("")
     val haveToNotifyPeopleBindingAdapter = MutableLiveData(1)
-    val closeSearchPersonFragment = MutableLiveData(false)
-    val closeSelectGenreFragment = MutableLiveData(false)
+    val isAdult = MutableLiveData(false)
 
 
     fun onSearchClick() {
@@ -63,12 +66,12 @@ class SearchViewModel @Inject constructor(
     }
 
     fun openPersonSearch() {
-        openPersonSearch.value = true
+        navController.navigate(R.id.action_searchFragment_to_searchPeopleFragment)
 
     }
 
     fun openSelectGenre() {
-        openSelectGenre.value = true
+        navController.navigate(R.id.action_searchFragment_to_selectGenresFragment)
     }
 
     fun fetchGenres() {
@@ -109,7 +112,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onButtonSelectGenreClick() {
-        closeSelectGenreFragment.value = true
+        navController.navigateUp()
     }
 
 
@@ -169,7 +172,7 @@ class SearchViewModel @Inject constructor(
     fun personSelected(person: Person) {
         selectedPersonName.value = person.name
         personQuery.value = person.id.toString()
-        closeSearchPersonFragment.value = true
+        navController.navigateUp()
     }
 
 }
