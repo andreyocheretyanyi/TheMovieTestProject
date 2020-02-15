@@ -3,7 +3,7 @@ package ua.codeasylum.themovietestproject.model.dataSource
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import ua.codeasylum.themovietestproject.model.networkDto.Person
-import ua.codeasylum.themovietestproject.model.repository.PeopleManagerInterface
+import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
 
 class PeopleDataSourceFactory(private val peopleManager: PeopleManagerInterface, name: String) :
     DataSource.Factory<Int, Person>() {

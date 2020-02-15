@@ -2,7 +2,7 @@ package ua.codeasylum.themovietestproject.model.dataSource
 
 import androidx.paging.ItemKeyedDataSource
 import ua.codeasylum.themovietestproject.model.networkDto.Person
-import ua.codeasylum.themovietestproject.model.repository.PeopleManagerInterface
+import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
 import java.lang.Exception
 
 class PeopleDataSource(

@@ -1,6 +1,5 @@
 package ua.codeasylum.themovietestproject.model.repository
 
-interface CanSaveToCache<T> {
+interface SaveToCache<T> {
     fun save(data: T)
-
 }

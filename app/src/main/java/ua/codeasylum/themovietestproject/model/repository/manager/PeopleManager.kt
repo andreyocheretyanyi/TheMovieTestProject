@@ -1,16 +1,28 @@
-package ua.codeasylum.themovietestproject.model.repository
+package ua.codeasylum.themovietestproject.model.repository.manager
 
 import io.reactivex.Single
+import ua.codeasylum.themovietestproject.base.DataPair
 import ua.codeasylum.themovietestproject.model.networkDto.PeopleDto
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleApiRepository
+import ua.codeasylum.themovietestproject.model.repository.people.PeopleCacheRepository
 
 class PeopleManager constructor(
-    private val peopleApiRepository: PeopleApiRepository
+    private val peopleApiRepository: PeopleApiRepository,
+    private val peopleCacheRepository: PeopleCacheRepository
 ) : PeopleManagerInterface {
 
     override fun searchPeople(query: String, page: Int): Single<MutableList<Person>> =
-        peopleApiRepository.searchPeople(query, page)
+        peopleCacheRepository.searchPeople(query, page)
+            .flatMap { cachedDto ->
+                if (cachedDto.results.isNotEmpty()) Single.just(cachedDto)
+                else
+                    peopleApiRepository.searchPeople(query, page)
+                        .map {
+                            peopleCacheRepository.save(DataPair(query, page), it)
+                            return@map it
+                        }
+            }
             .flatMap { convertDtoToList(it) }
 
 

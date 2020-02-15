@@ -12,8 +12,8 @@ import ua.codeasylum.themovietestproject.base.notifyObserver
 import ua.codeasylum.themovietestproject.model.dataSource.PeopleDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.Person
-import ua.codeasylum.themovietestproject.model.repository.GenreManagerInterface
-import ua.codeasylum.themovietestproject.model.repository.PeopleManagerInterface
+import ua.codeasylum.themovietestproject.model.repository.manager.GenreManagerInterface
+import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

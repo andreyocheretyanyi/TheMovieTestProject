@@ -9,6 +9,7 @@ import ua.codeasylum.themovietestproject.model.repository.genre.GenreApiReposito
 import ua.codeasylum.themovietestproject.model.repository.genre.GenreCacheRepository
 import ua.codeasylum.themovietestproject.model.repository.movie.MovieApiRepository
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleApiRepository
+import ua.codeasylum.themovietestproject.model.repository.people.PeopleCacheRepository
 
 
 @ApplicationScope
@@ -23,6 +24,7 @@ interface ApplicationComponent {
     fun genreApiReository() : GenreApiRepository
     fun genreCacheRepository() : GenreCacheRepository
     fun peopleApiRepository() : PeopleApiRepository
+    fun peopleCacheRepository() : PeopleCacheRepository
 
     @Component.Builder
     interface Builder{

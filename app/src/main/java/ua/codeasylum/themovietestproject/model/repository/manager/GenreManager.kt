@@ -1,4 +1,4 @@
-package ua.codeasylum.themovietestproject.model.repository
+package ua.codeasylum.themovietestproject.model.repository.manager
 
 
 import io.reactivex.Single

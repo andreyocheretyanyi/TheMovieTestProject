@@ -3,11 +3,11 @@ package ua.codeasylum.themovietestproject.model.repository.genre
 import io.reactivex.Single
 import ua.codeasylum.themovietestproject.di.scope.ApplicationScope
 import ua.codeasylum.themovietestproject.model.networkDto.GenreDto
-import ua.codeasylum.themovietestproject.model.repository.CanSaveToCache
+import ua.codeasylum.themovietestproject.model.repository.SaveToCache
 import javax.inject.Inject
 
 @ApplicationScope
-class GenreCacheRepository @Inject constructor() : GenreRepository, CanSaveToCache<GenreDto> {
+class GenreCacheRepository @Inject constructor() : GenreRepository, SaveToCache<GenreDto> {
 
     private var genreDto = GenreDto()
 
