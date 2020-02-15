@@ -17,6 +17,8 @@
         android:orientation="vertical">
 
         <TextView
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,12 +29,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:inputType="numberDecimal"
+            android:lines="1"
             android:id="@+id/et_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:hint="@string/enter_year_e_g_1995"
+            android:inputType="numberDecimal"
             android:maxLength="4"
             android:maxLines="1"
             android:text="@={viewModel.year}"
@@ -41,11 +44,14 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
         <EditText
+            android:ellipsize="end"
+            android:lines="1"
             android:id="@+id/et_film_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:hint="@string/enter_the_film_name_or_title"
+            android:inputType="text"
             android:maxLines="1"
             android:text="@={viewModel.query}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,19 +87,20 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_genres" />
 
         <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:checked="@={viewModel.isAdult}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_select_person"
+            android:text="@string/with_adult"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/with_adult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_select_person" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:onClick="@{() -> viewModel.onSearchClick()}"
+            android:text="@string/search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -5,9 +5,12 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
+import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.view.adapter.GenreRecyclerAdapter
+import ua.codeasylum.themovietestproject.view.adapter.MovieRecyclerAdapter
 import ua.codeasylum.themovietestproject.view.adapter.PeopleRecyclerAdapter
+import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 object BindingAdapters {
@@ -46,6 +49,27 @@ object BindingAdapters {
             }
             pagedList?.apply {
                 (adapter as PeopleRecyclerAdapter).submitList(pagedList)
+            }
+
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:parentViewModel", "app:movies","app:haveToNotify", requireAll = true)
+    fun bindMovies(
+        recyclerView: RecyclerView,
+        parentViewModel: SearchResultViewModel,
+        pagedList: PagedList<MovieResult>?,
+        haveToNotify: Int
+    ) {
+        with(recyclerView) {
+            if (this.adapter == null) {
+                adapter = MovieRecyclerAdapter(parentViewModel)
+                recyclerView.layoutManager =
+                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+            }
+            pagedList?.apply {
+                (adapter as MovieRecyclerAdapter).submitList(pagedList)
             }
 
         }

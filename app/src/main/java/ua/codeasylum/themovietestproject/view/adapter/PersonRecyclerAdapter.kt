@@ -13,13 +13,11 @@ import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 class PeopleRecyclerAdapter(val parentViewModel: SearchViewModel) :
     PagedListAdapter<Person, PeopleViewHolder>(
-        UserDiffCallback
+        personDiffCallback
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeopleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
-
         val binding: ItemPersonBinding = ItemPersonBinding.inflate(inflater, parent, false)
         return PeopleViewHolder(binding.root)
     }
@@ -34,7 +32,7 @@ class PeopleRecyclerAdapter(val parentViewModel: SearchViewModel) :
     }
 
     companion object {
-        val UserDiffCallback = object : DiffUtil.ItemCallback<Person>() {
+        val personDiffCallback = object : DiffUtil.ItemCallback<Person>() {
             override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean =
                 oldItem.id == newItem.id
 

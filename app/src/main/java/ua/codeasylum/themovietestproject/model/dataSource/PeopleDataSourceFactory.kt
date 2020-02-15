@@ -17,11 +17,11 @@ class PeopleDataSourceFactory(private val peopleManager: PeopleManagerInterface,
             field = value
         }
 
-    val dataSourceLiveData = MutableLiveData<PeopleDataSource>()
+    private val dataSourceLiveData = MutableLiveData<PeopleDataSource>()
 
     override fun create(): DataSource<Int, Person> {
-        val dataSource = PeopleDataSource(peopleManager, name)
-        dataSourceLiveData.postValue(dataSource)
-        return dataSource
+        peopleDataSource = PeopleDataSource(peopleManager, name)
+        dataSourceLiveData.postValue(peopleDataSource)
+        return peopleDataSource
     }
 }

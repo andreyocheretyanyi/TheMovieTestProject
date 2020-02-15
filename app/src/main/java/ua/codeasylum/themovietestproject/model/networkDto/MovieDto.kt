@@ -1,4 +1,5 @@
 package ua.codeasylum.themovietestproject.model.networkDto
+
 import com.google.gson.annotations.SerializedName
 
 
@@ -6,14 +7,14 @@ data class MovieDto(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")
-    var results: List<MoviesResult> = listOf(),
+    var results: List<MovieResult> = listOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")
     val totalResults: Int = 0
 )
 
-data class MoviesResult(
+data class MovieResult(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("backdrop_path")
@@ -41,5 +42,7 @@ data class MoviesResult(
     @SerializedName("vote_average")
     val voteAverage: Double = 0.0,
     @SerializedName("vote_count")
-    val voteCount: Int = 0
+    val voteCount: Int = 0,
+    var page: Int = 0,
+    var totalPages: Int = 0
 )
