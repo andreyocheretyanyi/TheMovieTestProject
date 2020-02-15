@@ -2,6 +2,7 @@ package ua.codeasylum.themovietestproject.model.repository
 
 import io.reactivex.Single
 import ua.codeasylum.themovietestproject.model.networkDto.PeopleDto
+import ua.codeasylum.themovietestproject.model.networkDto.PeopleResult
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleApiRepository
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleCacheRepository
 
@@ -10,8 +11,19 @@ class PeopleManager constructor(
     private val peopleCacheRepository: PeopleCacheRepository
 ) : PeopleManagerInterface {
 
-    override fun searchPeople(query: String, page: Int): Single<PeopleDto> =
+    override fun searchPeople(query: String, page: Int): Single<MutableList<PeopleResult>> =
         peopleApiRepository.searchPeople(query, page)
+            .flatMap { convertDtoToList(it) }
 
 
+    private fun convertDtoToList(peopleDto: PeopleDto): Single<MutableList<PeopleResult>> {
+        val list = mutableListOf<PeopleResult>()
+        for (result in peopleDto.results) {
+            result.page = peopleDto.page
+            result.totalPages = peopleDto.totalPages
+            list.add(result)
+        }
+        return Single.just(list)
+
+    }
 }

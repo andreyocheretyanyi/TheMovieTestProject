@@ -1,4 +1,5 @@
 package ua.codeasylum.themovietestproject.model.networkDto
+
 import com.google.gson.annotations.SerializedName
 
 
@@ -17,5 +18,8 @@ data class PeopleResult(
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("name")
-    val name: String = ""
+    val name: String = "",
+    var page: Int = 0,
+    var totalPages: Int = 0
+
 )

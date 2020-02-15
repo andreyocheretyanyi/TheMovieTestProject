@@ -2,13 +2,14 @@ package ua.codeasylum.themovietestproject.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.base.notifyObserver
+import ua.codeasylum.themovietestproject.model.dataSource.PeopleDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.PeopleResult
 import ua.codeasylum.themovietestproject.model.repository.GenreManagerInterface
@@ -33,6 +34,9 @@ class SearchViewModel @Inject constructor(
     private val searchPublishSubject by lazy {
         PublishSubject.create<String>()
     }
+    private lateinit var peoplerDataSourceFactory: PeopleDataSourceFactory
+
+
     val query: MutableLiveData<String> = MutableLiveData("")
     val year: MutableLiveData<String> = MutableLiveData("")
     val selectedGenres: MutableLiveData<MutableList<Genre>> = MutableLiveData(mutableListOf())
@@ -40,8 +44,9 @@ class SearchViewModel @Inject constructor(
     val allGenres: MutableLiveData<MutableList<Genre>> = MutableLiveData(mutableListOf())
     val openSelectGenre: MutableLiveData<Boolean> = MutableLiveData(false)
     val openPersonSearch: MutableLiveData<Boolean> = MutableLiveData(false)
-    val foundPeople: MutableLiveData<MutableList<PeopleResult>> = MutableLiveData(mutableListOf())
+    var foundPeople: LiveData<PagedList<PeopleResult>> = MutableLiveData()
     val enteredPersonName: MutableLiveData<String> = MutableLiveData("")
+    val haveToNotifyPeopleBindingAdapter = MutableLiveData(1)
 
 
     fun onSearchClick() {
@@ -117,22 +122,36 @@ class SearchViewModel @Inject constructor(
     }
 
     fun subscribeTextChange() {
+
         if (::peopleDisposable.isInitialized && !peopleDisposable.isDisposed)
             peopleDisposable.dispose()
-
+        peoplerDataSourceFactory = PeopleDataSourceFactory(peopleManager, "")
         peopleDisposable = searchPublishSubject
             .debounce(500, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .concatMap { peopleManager.searchPeople(it, 1).toObservable() }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                foundPeople.value?.clear()
-                foundPeople.value?.addAll(it.results)
-                foundPeople.notifyObserver()
+                initFactory(it)
             }, {
                 Log.d("", it.toString())
             })
 
     }
+
+    private fun initFactory(name: String) {
+        if (::peoplerDataSourceFactory.isInitialized)
+            peoplerDataSourceFactory.name = name
+        else
+            peoplerDataSourceFactory = PeopleDataSourceFactory(peopleManager, name)
+
+        val config = PagedList.Config.Builder()
+            .setPageSize(20)
+            .setEnablePlaceholders(false)
+            .build()
+        foundPeople =
+            LivePagedListBuilder<Int, PeopleResult>(peoplerDataSourceFactory, config).build()
+        haveToNotifyPeopleBindingAdapter.notifyObserver()
+
+    }
+
 }
 

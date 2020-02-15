@@ -1,6 +1,7 @@
 package ua.codeasylum.themovietestproject.view
 
 import androidx.databinding.BindingAdapter
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
@@ -30,19 +31,23 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("app:parentViewModel", "app:people", requireAll = true)
+    @BindingAdapter("app:parentViewModel", "app:people","app:haveToNotify", requireAll = true)
     fun bindPeople(
         recyclerView: RecyclerView,
         parentViewModel: SearchViewModel,
-        people: MutableList<PeopleResult>
+        pagedList: PagedList<PeopleResult>?,
+        haveToNotify : Int
     ) {
         with(recyclerView) {
             if (this.adapter == null) {
-                adapter = PeopleRecyclerAdapter(parentViewModel, people)
+                adapter = PeopleRecyclerAdapter(parentViewModel)
                 recyclerView.layoutManager =
                     LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
             }
-            adapter?.notifyDataSetChanged()
+            pagedList?.apply {
+                (adapter as PeopleRecyclerAdapter).submitList(pagedList)
+            }
+
         }
     }
 }
