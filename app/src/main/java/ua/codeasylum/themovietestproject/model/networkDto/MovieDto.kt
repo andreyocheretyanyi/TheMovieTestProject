@@ -1,6 +1,8 @@
 package ua.codeasylum.themovietestproject.model.networkDto
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
 data class MovieDto(
@@ -14,13 +16,14 @@ data class MovieDto(
     val totalResults: Int = 0
 )
 
+@Parcelize
 data class MovieResult(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("backdrop_path")
     val backdropPath: String = "",
     @SerializedName("genre_ids")
-    val genreIds: List<Int> = listOf(),
+    val genreIds: MutableList<Int> = ArrayList(),
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("original_language")
@@ -45,4 +48,4 @@ data class MovieResult(
     val voteCount: Int = 0,
     var page: Int = 0,
     var totalPages: Int = 0
-)
+) : Parcelable

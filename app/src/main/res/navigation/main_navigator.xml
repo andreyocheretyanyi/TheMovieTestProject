@@ -45,7 +45,11 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="ua.codeasylum.themovietestproject.view.MovieDetailFragment"
-        android:label="MovieDetailFragment" />
+        android:label="MovieDetailFragment" >
+        <argument
+            android:name="movie"
+            app:argType="ua.codeasylum.themovietestproject.model.networkDto.MovieResult" />
+    </fragment>
     <fragment
         android:id="@+id/searchPeopleFragment"
         android:name="ua.codeasylum.themovietestproject.view.SearchPersonFragment"
