@@ -25,6 +25,22 @@
         <action
             android:id="@+id/action_searchResultFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <argument
+            android:name="year"
+            app:argType="string" />
+        <argument
+            android:name="filmQuery"
+            app:argType="string" />
+        <argument
+            android:name="genresIds"
+            app:argType="string" />
+        <argument
+            android:name="personId"
+            app:argType="string" />
+        <argument
+            android:name="isAdult"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"

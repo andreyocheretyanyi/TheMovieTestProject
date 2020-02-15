@@ -17,6 +17,8 @@ import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.manager.GenreManagerInterface
 import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
+import ua.codeasylum.themovietestproject.view.SearchFragmentDirections
+import ua.codeasylum.themovietestproject.view.SearchResultFragmentDirections
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -58,11 +60,27 @@ class SearchViewModel @Inject constructor(
     var foundPeople: LiveData<PagedList<Person>> = MutableLiveData()
     val personSearchedName = MutableLiveData("")
     val haveToNotifyPeopleBindingAdapter = MutableLiveData(1)
+    val error = MutableLiveData("")
     val isAdult = MutableLiveData(false)
 
 
     fun onSearchClick() {
+        val year = year.value ?: ""
+        val movieQuery = query.value ?: ""
+        val genresId = genresQuery.value ?: ""
+        val personName = personQuery.value ?: ""
+        val isAdult = isAdult.value ?: false
 
+        if (year.isNotEmpty() || movieQuery.isNotEmpty() || genresId.isNotEmpty() || personName.isNotEmpty())
+            navController.navigate(
+                SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(
+                    year, movieQuery, genresId, personName, isAdult
+                )
+            ) else {
+            error.value = getApplication<App>().getString(R.string.fill_in_at_least_one_field)
+            error.postValue("")
+
+        }
     }
 
     fun openPersonSearch() {
