@@ -47,10 +47,10 @@
             app:layout_constraintGuide_end="150dp" />
 
         <TextView
-            android:layout_marginTop="5dp"
             android:id="@+id/tv_realise_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@{viewModel.rDate}"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,10 +58,10 @@
             app:layout_constraintTop_toTopOf="@+id/iv_film_image" />
 
         <TextView
-            android:layout_marginTop="5dp"
             android:id="@+id/tv_original_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@{@string/original_language(viewModel.originalLang)}"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,10 +70,10 @@
 
 
         <ImageView
-            android:layout_marginTop="5dp"
             android:id="@+id/iv_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:src="@android:drawable/btn_star_big_on"
             app:layout_constraintEnd_toStartOf="@+id/tv_star"
             app:layout_constraintHorizontal_bias="0.5"
@@ -96,10 +96,12 @@
             app:layout_constraintTop_toTopOf="@+id/iv_star" />
 
         <TextView
-            android:textColor="@android:color/white"
-            android:layout_width="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{viewModel.genres}"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/gl_end"
             app:layout_constraintTop_toBottomOf="@+id/iv_star" />
