@@ -16,6 +16,9 @@ class MovieDataSource(
     private val isAdult: Boolean,
     private val errorLiveData: MutableLiveData<String>
 ) : ItemKeyedDataSource<Int, MovieResult>() {
+
+    private var isEnd = false
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<MovieResult>
@@ -27,8 +30,10 @@ class MovieDataSource(
         makeRequest(callback, params.key)
     }
 
-    override fun getKey(item: MovieResult): Int =
-        if (item.page <= item.totalPages) 1 + item.page else item.page
+    override fun getKey(item: MovieResult): Int {
+        isEnd = item.page == item.totalPages
+        return if (item.page < item.totalPages) 1 + item.page else item.page
+    }
 
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<MovieResult>) {
@@ -36,14 +41,22 @@ class MovieDataSource(
     }
 
     private fun makeRequest(callback: LoadCallback<MovieResult>, page: Int) {
-        try {
-            callback.onResult(
-                movieManager.fetchMoviesByAgruments(
-                    MovieArgs(movieQuery,isAdult,page,if (year.isNotEmpty()) year.toInt() else null,genresIds,personId)
-                ).blockingGet()
-            )
-        } catch (e: Exception) {
-            errorLiveData.postValue(e.message)
-        }
+        if (!isEnd)
+            try {
+                callback.onResult(
+                    movieManager.fetchMoviesByAgruments(
+                        MovieArgs(
+                            movieQuery,
+                            isAdult,
+                            page,
+                            if (year.isNotEmpty()) year.toInt() else null,
+                            genresIds,
+                            personId
+                        )
+                    ).blockingGet()
+                )
+            } catch (e: Exception) {
+                errorLiveData.postValue(e.message)
+            }
     }
 }

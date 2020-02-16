@@ -9,9 +9,13 @@ import java.lang.Exception
 class PeopleDataSource(
     private val peopleManager: PeopleManagerInterface,
     var name: String,
-    private val errorLiveData : MutableLiveData<String>
+    private val errorLiveData: MutableLiveData<String>
 
 ) : ItemKeyedDataSource<Int, Person>() {
+
+    private var isEnd = false
+
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Person>
@@ -27,12 +31,14 @@ class PeopleDataSource(
 
     }
 
-    override fun getKey(item: Person): Int =
-        if (item.page <= item.totalPages) 1 + item.page else item.page
+    override fun getKey(item: Person): Int {
+        isEnd = item.page == item.totalPages
+        return if (item.page < item.totalPages) 1 + item.page else item.page
+    }
 
 
     private fun makeRequest(callback: LoadCallback<Person>, page: Int) {
-        if (name.isNotEmpty())
+        if (name.isNotEmpty() && !isEnd)
             try {
 
                 callback.onResult(peopleManager.searchPeople(name, page).blockingGet())

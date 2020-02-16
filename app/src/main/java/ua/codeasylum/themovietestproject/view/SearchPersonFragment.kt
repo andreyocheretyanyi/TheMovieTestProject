@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.navigateUp
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
+import ua.codeasylum.themovietestproject.base.showToast
 import ua.codeasylum.themovietestproject.databinding.FragmentSearchPeopleBinding
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
@@ -46,5 +47,11 @@ class SearchPersonFragment : BaseFragment() {
             this.viewLifecycleOwner,
             searchViewModel.enteredPersonNameObserver
         )
+        searchViewModel.error.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                showToast(it)
+                searchViewModel.error.value = it
+            }
+        })
     }
 }
