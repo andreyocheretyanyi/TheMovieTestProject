@@ -24,7 +24,7 @@ class MovieDetailViewModel @Inject constructor(
     fun performArgs(movieDetailFragmentArgs: MovieDetailFragmentArgs) {
         with(movieDetailFragmentArgs.movie) {
             movieTitle.value = title
-            movieImage.value = posterPath
+            movieImage.value = posterPath ?: ""
             movieDescription.value = overview
             originalLang.value = originalLanguage
             rDate.value = releaseDate

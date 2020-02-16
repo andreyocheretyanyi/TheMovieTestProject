@@ -33,8 +33,12 @@ class GenreManager constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .flatMap {
                 var genreString = ""
-                for (genre in it.genres)
-                    genreString += appendGenreData(genreString, genre)
+                for (genre in it.genres) {
+                    if (list.isEmpty())
+                        break
+                    if (list.contains(genre.id))
+                        genreString = appendGenreData(genreString, genre)
+                }
                 return@flatMap Single.just(genreString)
 
             }
@@ -44,7 +48,7 @@ class GenreManager constructor(
         var genresText = genresString
 
         genresText += if (genresText.isNotEmpty())
-            ",${genre.name}"
+            ", ${genre.name}"
         else
             genre.name
 

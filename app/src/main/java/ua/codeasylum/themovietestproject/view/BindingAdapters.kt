@@ -1,5 +1,6 @@
 package ua.codeasylum.themovietestproject.view
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
@@ -83,5 +84,11 @@ object BindingAdapters {
         Picasso.get()
             .load("https://image.tmdb.org/t/p/original$url")
             .into(imageView)
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:visibleElseGone")
+    fun visibleElseGone(view: View, visible: Boolean) {
+        view.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
+import ua.codeasylum.themovietestproject.base.showToast
 import ua.codeasylum.themovietestproject.databinding.FragmentSelectGenresBinding
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
@@ -37,6 +38,12 @@ class SelectGenresFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchViewModel.fetchGenres()
+        searchViewModel.error.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                showToast(it)
+                searchViewModel.error.value = ""
+            }
+        })
     }
 
 }
