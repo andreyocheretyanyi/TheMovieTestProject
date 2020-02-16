@@ -10,9 +10,12 @@ interface MovieService {
     @GET("discover/movie")
     fun discoverMovie(
         @Query("api_key") apiKey: String, @Query("include_adult") includeAdult: Boolean,
-        @Query("page") page: Int, @Query("primary_release_year") year: Int?, @Query("with_genres") genres: String,
+        @Query("page") page: Int, @Query("primary_release_year") year: Int?, @Query(
+            "with_genres",
+            encoded = true
+        ) genres: String,
         @Query("with_people") people: String
-    ) : Single<MovieDto>
+    ): Single<MovieDto>
 
     @GET("search/movie")
     fun searchMovie(
@@ -21,6 +24,6 @@ interface MovieService {
             encoded = true
         ) query: String, @Query("page") page: Int,
         @Query("include_adult") includeAdult: Boolean, @Query("year") year: Int?
-    ) : Single<MovieDto>
+    ): Single<MovieDto>
 
 }

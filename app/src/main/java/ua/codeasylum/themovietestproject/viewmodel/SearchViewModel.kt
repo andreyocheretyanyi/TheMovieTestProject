@@ -117,10 +117,12 @@ class SearchViewModel @Inject constructor(
     }
 
 
-    fun onSelectSingleGenre(genre: Genre) {
-        selectedGenres.value?.add(genre)
-        appendGenreData(genre)
-        selectedGenres.notifyObserver()
+    fun onSelectSingleGenre(genre: Genre, selected: Boolean) {
+        if (!selected) {
+            selectedGenres.value?.add(genre)
+            appendGenreData(genre)
+            selectedGenres.notifyObserver()
+        }
     }
 
     fun clearGenresClick() {
@@ -141,14 +143,15 @@ class SearchViewModel @Inject constructor(
             var genresText = this@SearchViewModel.genresText.value ?: ""
 
             genresText += if (genresText.isNotEmpty())
-                ",${genre.name}"
+                ", ${genre.name}"
             else
                 genre.name
 
             genresQuery += if (genresQuery.isNotEmpty())
-                genre.id
+                "|${genre.id}"
             else
-                ",${genre.id}"
+                genre.id
+
 
             this@SearchViewModel.genresQuery.value = genresQuery
             this@SearchViewModel.genresText.value = genresText
