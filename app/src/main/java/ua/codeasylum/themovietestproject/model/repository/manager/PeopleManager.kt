@@ -1,7 +1,6 @@
 package ua.codeasylum.themovietestproject.model.repository.manager
 
 import io.reactivex.Single
-import ua.codeasylum.themovietestproject.base.DataPair
 import ua.codeasylum.themovietestproject.model.networkDto.PeopleDto
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleApiRepository
@@ -19,7 +18,7 @@ class PeopleManager constructor(
                 else
                     peopleApiRepository.searchPeople(query, page)
                         .map {
-                            peopleCacheRepository.save(DataPair(query, page), it)
+                            peopleCacheRepository.save(Pair(query, page), it)
                             return@map it
                         }
             }

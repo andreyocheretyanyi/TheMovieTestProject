@@ -24,6 +24,7 @@ class SearchResultViewModel @Inject constructor(
 
     var movies: LiveData<PagedList<MovieResult>> = MutableLiveData()
     val haveToNotifyBindingAdapter = MutableLiveData(1)
+    val error = MutableLiveData("")
 
     fun initMovieDataFactory(
         year: String,
@@ -33,7 +34,15 @@ class SearchResultViewModel @Inject constructor(
         isAdult: Boolean
     ) {
         movieDataFactory =
-            MovieDataSourceFactory(movieManager, year, movieQuery, genresIds, personId, isAdult)
+            MovieDataSourceFactory(
+                movieManager,
+                year,
+                movieQuery,
+                genresIds,
+                personId,
+                isAdult,
+                error
+            )
 
         val config = PagedList.Config.Builder()
             .setPageSize(20)

@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
+import ua.codeasylum.themovietestproject.base.showToast
 import ua.codeasylum.themovietestproject.databinding.FragmentSearchResultBinding
 import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
 
@@ -40,7 +42,19 @@ class SearchResultFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchResultViewModel.initMovieDataFactory(args.year,args.filmQuery,args.genresIds,args.personId,args.isAdult)
+        searchResultViewModel.initMovieDataFactory(
+            args.year,
+            args.filmQuery,
+            args.genresIds,
+            args.personId,
+            args.isAdult
+        )
+        searchResultViewModel.error.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                showToast(it)
+                searchResultViewModel.error.value = ""
+            }
+        })
 
     }
 

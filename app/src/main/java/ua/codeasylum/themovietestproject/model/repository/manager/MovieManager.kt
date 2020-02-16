@@ -5,26 +5,35 @@ import ua.codeasylum.themovietestproject.di.scope.ActivityScope
 import ua.codeasylum.themovietestproject.model.networkDto.MovieDto
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.movie.MovieApiRepository
+import ua.codeasylum.themovietestproject.model.repository.movie.MovieArgs
+import ua.codeasylum.themovietestproject.model.repository.movie.MovieCacheRepository
 
 @ActivityScope
 class MovieManager constructor(
-    private var movieApiRepository: MovieApiRepository
+    private val movieApiRepository: MovieApiRepository,
+    private val movieCacheRepository: MovieCacheRepository
 ) : MovieManagerInterface {
     override fun fetchMoviesByAgruments(
-        query: String,
-        includeAdult: Boolean,
-        page: Int,
-        year: Int?,
-        genres: String,
-        people: String
+        movieArgs: MovieArgs
     ): Single<MutableList<MovieResult>> =
-        (if (genres.isEmpty() && people.isEmpty() && query.isNotEmpty())
-            movieApiRepository.searchMovies(query, page, includeAdult, year)
-        else movieApiRepository.discoverMovies(includeAdult, page, year, genres, people)
-            .map { filterMoviesByName(query, it) }
-                ).flatMap {
-            fillMovies(it)
-        }
+        movieCacheRepository.searchMovies(movieArgs)
+            .flatMap { cachedDto ->
+                if (cachedDto.results.isNotEmpty())
+                    Single.just(cachedDto)
+                else
+                    (if (movieArgs.genres.isEmpty() && movieArgs.people.isEmpty() && movieArgs.query.isNotEmpty())
+                        movieApiRepository.searchMovies(movieArgs)
+                    else
+                        movieApiRepository.discoverMovies(movieArgs)
+                            .map { filterMoviesByName(movieArgs.query, it) })
+                        .map {
+                            movieCacheRepository.save(movieArgs, it)
+                            return@map it
+                        }
+            }
+            .flatMap {
+                fillMovies(it)
+            }
 
     private fun fillMovies(movieDto: MovieDto): Single<MutableList<MovieResult>> {
         val result = mutableListOf<MovieResult>()

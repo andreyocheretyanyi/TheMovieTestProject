@@ -6,13 +6,18 @@ import ua.codeasylum.themovietestproject.model.networkDto.MovieDto
 interface MovieRepository {
 
 
-    fun searchMovies(query: String, page: Int, includeAdult: Boolean, year: Int?): Single<MovieDto>
+    fun searchMovies(movieArgs: MovieArgs): Single<MovieDto>
 
-    fun discoverMovies(
-        includeAdult: Boolean,
-        page: Int,
-        year: Int?,
-        genres: String,
-        people: String
+    fun discoverMovies(movieArgs: MovieArgs
     ): Single<MovieDto>
 }
+
+
+data class MovieArgs(
+    val query: String,
+    val includeAdult: Boolean,
+    val page: Int,
+    val year: Int?,
+    val genres: String,
+    val people: String
+)

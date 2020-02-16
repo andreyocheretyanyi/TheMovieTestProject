@@ -13,23 +13,22 @@ class MovieApiRepository @Inject constructor(private val movieService: MovieServ
     MovieRepository {
 
     override fun searchMovies(
-        query: String,
-        page: Int,
-        includeAdult: Boolean,
-        year: Int?
+        movieArgs: MovieArgs
     ): Single<MovieDto> =
-        movieService.searchMovie(BuildConfig.API_KEY, query, page, includeAdult, year)
+        movieService.searchMovie(
+            BuildConfig.API_KEY,
+            movieArgs.query,
+            movieArgs.page,
+            movieArgs.includeAdult,
+            movieArgs.year
+        )
             .subscribeOn(Schedulers.io())
 
 
     override fun discoverMovies(
-        includeAdult: Boolean,
-        page: Int,
-        year: Int?,
-        genres: String,
-        people: String
+        movieArgs: MovieArgs
     ): Single<MovieDto> =
-        movieService.discoverMovie(BuildConfig.API_KEY, includeAdult, page, year, genres, people)
+        movieService.discoverMovie(BuildConfig.API_KEY, movieArgs.includeAdult, movieArgs.page, movieArgs.year, movieArgs.genres, movieArgs.people)
             .subscribeOn(Schedulers.io())
 
 

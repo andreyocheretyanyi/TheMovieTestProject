@@ -7,6 +7,7 @@ import ua.codeasylum.themovietestproject.model.repository.genre.GenreApiReposito
 import ua.codeasylum.themovietestproject.model.repository.genre.GenreCacheRepository
 import ua.codeasylum.themovietestproject.model.repository.manager.*
 import ua.codeasylum.themovietestproject.model.repository.movie.MovieApiRepository
+import ua.codeasylum.themovietestproject.model.repository.movie.MovieCacheRepository
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleApiRepository
 import ua.codeasylum.themovietestproject.model.repository.people.PeopleCacheRepository
 
@@ -16,10 +17,12 @@ class RepositoryModule {
     @ActivityScope
     @Provides
     fun provideMovieManager(
-        movieApiRepository: MovieApiRepository
+        movieApiRepository: MovieApiRepository,
+        movieCacheRepository: MovieCacheRepository
     ): MovieManagerInterface =
         MovieManager(
-            movieApiRepository
+            movieApiRepository,
+            movieCacheRepository
         )
 
     @ActivityScope

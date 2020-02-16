@@ -1,5 +1,6 @@
 package ua.codeasylum.themovietestproject.model.dataSource
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
@@ -7,7 +8,8 @@ import java.lang.Exception
 
 class PeopleDataSource(
     private val peopleManager: PeopleManagerInterface,
-    var name: String
+    var name: String,
+    private val errorLiveData : MutableLiveData<String>
 
 ) : ItemKeyedDataSource<Int, Person>() {
     override fun loadInitial(
@@ -35,7 +37,7 @@ class PeopleDataSource(
 
                 callback.onResult(peopleManager.searchPeople(name, page).blockingGet())
             } catch (e: Exception) {
-                callback.onError(e)
+                errorLiveData.postValue(e.message)
             }
     }
 

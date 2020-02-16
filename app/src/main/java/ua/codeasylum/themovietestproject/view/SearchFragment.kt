@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
+import ua.codeasylum.themovietestproject.base.showToast
 import ua.codeasylum.themovietestproject.databinding.FragmentSearchMoviesBinding
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
@@ -38,8 +39,10 @@ class SearchFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchViewModel.error.observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty())
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            if (it.isNotEmpty()) {
+                showToast(it)
+                searchViewModel.error.value = ""
+            }
         })
     }
 

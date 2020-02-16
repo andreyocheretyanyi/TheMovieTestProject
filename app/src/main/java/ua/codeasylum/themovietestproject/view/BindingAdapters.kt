@@ -1,9 +1,11 @@
 package ua.codeasylum.themovietestproject.view
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.networkDto.Person
@@ -55,7 +57,7 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("app:parentViewModel", "app:movies","app:haveToNotify", requireAll = true)
+    @BindingAdapter("app:parentViewModel", "app:movies", "app:haveToNotify", requireAll = true)
     fun bindMovies(
         recyclerView: RecyclerView,
         parentViewModel: SearchResultViewModel,
@@ -73,5 +75,13 @@ object BindingAdapters {
             }
 
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:imageUrl")
+    fun bindImageUrl(imageView: ImageView, url: String) {
+        Picasso.get()
+            .load("https://image.tmdb.org/t/p/original$url")
+            .into(imageView)
     }
 }

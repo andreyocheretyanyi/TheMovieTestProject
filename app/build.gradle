@@ -52,6 +52,7 @@ android {
         def dagger_version = "2.26"
         def rx_version = "2.2.17"
         def paging_version = "2.1.1"
+        def picasso_version = "2.71828"
 
         implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -75,6 +76,9 @@ android {
         //paging
         implementation "androidx.paging:paging-runtime:$paging_version"
         implementation "androidx.paging:paging-rxjava2:$paging_version"
+        //picasso
+        implementation "com.squareup.picasso:picasso:$picasso_version"
+
 
 
         implementation fileTree(dir: 'libs', include: ['*.jar'])

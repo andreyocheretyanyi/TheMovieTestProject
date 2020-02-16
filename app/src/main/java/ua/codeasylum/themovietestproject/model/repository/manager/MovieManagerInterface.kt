@@ -3,14 +3,11 @@ package ua.codeasylum.themovietestproject.model.repository.manager
 import io.reactivex.Single
 import ua.codeasylum.themovietestproject.model.networkDto.MovieDto
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
+import ua.codeasylum.themovietestproject.model.repository.movie.MovieArgs
 
 interface MovieManagerInterface {
 
     fun fetchMoviesByAgruments(
-        query: String, includeAdult: Boolean,
-        page: Int,
-        year: Int?,
-        genres: String,
-        people: String
+        movieArgs: MovieArgs
     ): Single<MutableList<MovieResult>>
 }

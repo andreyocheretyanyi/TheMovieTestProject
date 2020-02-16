@@ -78,7 +78,6 @@ class SearchViewModel @Inject constructor(
                 )
             ) else {
             error.value = getApplication<App>().getString(R.string.fill_in_at_least_one_field)
-            error.postValue("")
 
         }
     }
@@ -98,11 +97,13 @@ class SearchViewModel @Inject constructor(
 
         genresDisposable = genreManager.fetchGenres()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { t1, _ ->
+            .subscribe({
                 allGenres.value?.clear()
-                allGenres.value?.addAll(t1.genres)
+                allGenres.value?.addAll(it.genres)
                 allGenres.notifyObserver()
-            }
+            }, {
+                error.value = it.message
+            })
 
 
     }
@@ -159,23 +160,20 @@ class SearchViewModel @Inject constructor(
 
         if (::peopleDisposable.isInitialized && !peopleDisposable.isDisposed)
             peopleDisposable.dispose()
-        peoplerDataSourceFactory = PeopleDataSourceFactory(peopleManager, "")
+        peoplerDataSourceFactory = PeopleDataSourceFactory(peopleManager, error, "")
         peopleDisposable = searchPublishSubject
             .debounce(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 initPersonDataSourceFactory(it)
             }, {
-                Log.d("", it.toString())
+                error.value = it.message
             })
 
     }
 
     private fun initPersonDataSourceFactory(name: String) {
-        if (::peoplerDataSourceFactory.isInitialized)
-            peoplerDataSourceFactory.name = name
-        else
-            peoplerDataSourceFactory = PeopleDataSourceFactory(peopleManager, name)
+        peoplerDataSourceFactory.name = name
 
         val config = PagedList.Config.Builder()
             .setPageSize(20)

@@ -7,4 +7,8 @@ interface GenreManagerInterface {
 
     fun fetchGenres(): Single<GenreDto>
 
+    fun getGenresStringById(list: MutableList<Int>): Single<String>
+
+
+
 }

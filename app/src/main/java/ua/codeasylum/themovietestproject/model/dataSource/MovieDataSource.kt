@@ -1,17 +1,20 @@
 package ua.codeasylum.themovietestproject.model.dataSource
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
+import ua.codeasylum.themovietestproject.model.repository.movie.MovieArgs
 import java.lang.Exception
 
 class MovieDataSource(
-    val movieManager: MovieManagerInterface,
-    val year: String,
-    val movieQuery: String,
-    val genresIds: String,
-    val personId: String,
-    val isAdult: Boolean
+    private val movieManager: MovieManagerInterface,
+    private val year: String,
+    private val movieQuery: String,
+    private val genresIds: String,
+    private val personId: String,
+    private val isAdult: Boolean,
+    private val errorLiveData: MutableLiveData<String>
 ) : ItemKeyedDataSource<Int, MovieResult>() {
     override fun loadInitial(
         params: LoadInitialParams<Int>,
@@ -36,15 +39,11 @@ class MovieDataSource(
         try {
             callback.onResult(
                 movieManager.fetchMoviesByAgruments(
-                    movieQuery, isAdult,
-                    page,
-                    if (year.isNotEmpty()) year.toInt() else null,
-                    genresIds,
-                    personId
+                    MovieArgs(movieQuery,isAdult,page,if (year.isNotEmpty()) year.toInt() else null,genresIds,personId)
                 ).blockingGet()
             )
         } catch (e: Exception) {
-            callback.onError(e)
+            errorLiveData.postValue(e.message)
         }
     }
 }
