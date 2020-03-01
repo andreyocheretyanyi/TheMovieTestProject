@@ -6,9 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import ua.codeasylum.themovietestproject.di.scope.ViewModelKey
-import ua.codeasylum.themovietestproject.viewmodel.MovieDetailViewModel
-import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
-import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
+import ua.codeasylum.themovietestproject.viewmodel.*
 
 @Module
 abstract class ViewModelModule {
@@ -27,4 +25,24 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieDetailViewModel::class)
     abstract fun movieDetailViewModel(movieDetailViewModel: MovieDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeViewModel::class)
+    abstract fun homeViewModel(homeViewModel : HomeViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AllMoviesViewModel::class)
+    abstract fun allMoviesViewModel(allMoviesViewModel : AllMoviesViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TopMoviesViewModel::class)
+    abstract fun topMoviesViewModel(topMoviesViewModel : TopMoviesViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewestMovieViewModel::class)
+    abstract fun newestMoviesViewModel(newestMovieViewModel : NewestMovieViewModel) : ViewModel
 }

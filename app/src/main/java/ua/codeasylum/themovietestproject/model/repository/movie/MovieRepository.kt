@@ -10,6 +10,10 @@ interface MovieRepository {
 
     fun discoverMovies(movieArgs: MovieArgs
     ): Single<MovieDto>
+
+    fun getUpcoming(page : Int) : Single<MovieDto>
+
+    fun getTopRated(page : Int) : Single<MovieDto>
 }
 
 

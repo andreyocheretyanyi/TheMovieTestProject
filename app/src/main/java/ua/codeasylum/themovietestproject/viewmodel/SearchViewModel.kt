@@ -1,9 +1,7 @@
 package ua.codeasylum.themovietestproject.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,13 +10,12 @@ import io.reactivex.subjects.PublishSubject
 import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.notifyObserver
-import ua.codeasylum.themovietestproject.model.dataSource.PeopleDataSourceFactory
+import ua.codeasylum.themovietestproject.model.dataSource.people.PeopleDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.manager.GenreManagerInterface
 import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
 import ua.codeasylum.themovietestproject.view.SearchFragmentDirections
-import ua.codeasylum.themovietestproject.view.SearchResultFragmentDirections
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -163,7 +160,12 @@ class SearchViewModel @Inject constructor(
 
         if (::peopleDisposable.isInitialized && !peopleDisposable.isDisposed)
             peopleDisposable.dispose()
-        peoplerDataSourceFactory = PeopleDataSourceFactory(peopleManager, error, "")
+        peoplerDataSourceFactory =
+            PeopleDataSourceFactory(
+                peopleManager,
+                error,
+                ""
+            )
         peopleDisposable = searchPublishSubject
             .debounce(500, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())

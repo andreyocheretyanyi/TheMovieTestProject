@@ -35,6 +35,37 @@ class MovieManager constructor(
                 fillMovies(it)
             }
 
+    override fun fetchTopRated(page: Int): Single<MutableList<MovieResult>> =
+        movieCacheRepository.getTopRated(page)
+            .flatMap { cachedDto ->
+                if (cachedDto.results.isNotEmpty())
+                    Single.just(cachedDto)
+                else
+                    movieApiRepository.getTopRated(page)
+                        .map {
+                            movieCacheRepository.saveTopRated(it)
+                            return@map it
+                        }
+            }.flatMap {
+                fillMovies(it)
+            }
+
+
+    override fun fetchUpcoming(page: Int): Single<MutableList<MovieResult>> =
+        movieCacheRepository.getUpcoming(page)
+            .flatMap { cachedDto ->
+                if (cachedDto.results.isNotEmpty())
+                    Single.just(cachedDto)
+                else
+                    movieApiRepository.getUpcoming(page)
+                        .map {
+                            movieCacheRepository.saveUpcoming(it)
+                            return@map it
+                        }
+            }.flatMap {
+                fillMovies(it)
+            }
+
     private fun fillMovies(movieDto: MovieDto): Single<MutableList<MovieResult>> {
         val result = mutableListOf<MovieResult>()
         for (movie in movieDto.results) {

@@ -28,7 +28,22 @@ class MovieApiRepository @Inject constructor(private val movieService: MovieServ
     override fun discoverMovies(
         movieArgs: MovieArgs
     ): Single<MovieDto> =
-        movieService.discoverMovie(BuildConfig.API_KEY, movieArgs.includeAdult, movieArgs.page, movieArgs.year, movieArgs.genres, movieArgs.people)
+        movieService.discoverMovie(
+            BuildConfig.API_KEY,
+            movieArgs.includeAdult,
+            movieArgs.page,
+            movieArgs.year,
+            movieArgs.genres,
+            movieArgs.people
+        )
+            .subscribeOn(Schedulers.io())
+
+    override fun getUpcoming(page: Int): Single<MovieDto> =
+        movieService.getUpcoming(BuildConfig.API_KEY, page)
+            .subscribeOn(Schedulers.io())
+
+    override fun getTopRated(page: Int): Single<MovieDto> =
+        movieService.getTopRated(BuildConfig.API_KEY, page)
             .subscribeOn(Schedulers.io())
 
 

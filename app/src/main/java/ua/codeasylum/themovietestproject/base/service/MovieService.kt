@@ -26,4 +26,11 @@ interface MovieService {
         @Query("include_adult") includeAdult: Boolean, @Query("year") year: Int?
     ): Single<MovieDto>
 
+
+    @GET("movie/upcoming")
+    fun getUpcoming(@Query("api_key") apiKey: String, @Query("page") page: Int): Single<MovieDto>
+
+    @GET("movie/top_rated")
+    fun getTopRated(@Query("api_key") apiKey: String, @Query("page") page: Int): Single<MovieDto>
+
 }

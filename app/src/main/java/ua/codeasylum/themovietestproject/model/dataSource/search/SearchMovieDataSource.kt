@@ -1,4 +1,4 @@
-package ua.codeasylum.themovietestproject.model.dataSource
+package ua.codeasylum.themovietestproject.model.dataSource.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
@@ -7,7 +7,7 @@ import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerIn
 import ua.codeasylum.themovietestproject.model.repository.movie.MovieArgs
 import java.lang.Exception
 
-class MovieDataSource(
+class SearchMovieDataSource(
     private val movieManager: MovieManagerInterface,
     private val year: String,
     private val movieQuery: String,

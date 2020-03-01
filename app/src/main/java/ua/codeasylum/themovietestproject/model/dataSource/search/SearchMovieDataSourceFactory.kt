@@ -1,11 +1,11 @@
-package ua.codeasylum.themovietestproject.model.dataSource
+package ua.codeasylum.themovietestproject.model.dataSource.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
 
-class MovieDataSourceFactory(
+class SearchMovieDataSourceFactory(
     private val movieManager: MovieManagerInterface,
     private val year: String,
     private val movieQuery: String,
@@ -16,10 +16,9 @@ class MovieDataSourceFactory(
 ) : DataSource.Factory<Int, MovieResult>() {
 
 
-    private val dataSourceLiveData = MutableLiveData<MovieDataSource>()
 
     override fun create(): DataSource<Int, MovieResult> =
-        MovieDataSource(
+        SearchMovieDataSource(
             movieManager,
             year,
             movieQuery,
@@ -27,8 +26,6 @@ class MovieDataSourceFactory(
             personId,
             isAdult,
             errorLiveData
-        ).apply {
-            dataSourceLiveData.postValue(this)
-        }
+        )
 
 }
