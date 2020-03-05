@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -41,6 +42,7 @@ class SearchResultFragment : ListFragment() {
                 searchResultViewModel.error.value = ""
             }
         })
+        (activity as AppCompatActivity).supportActionBar?.title = searchResultViewModel.foundTitle
 
     }
 

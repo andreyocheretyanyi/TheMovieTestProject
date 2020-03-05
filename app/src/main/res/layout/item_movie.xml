@@ -14,7 +14,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_margin="10dp"
+        android:elevation="10dp"
         android:layout_width="match_parent"
+        android:background="@drawable/rounded_item_background"
         android:layout_height="wrap_content"
         android:onClick="@{() -> parentViewModel.onMovieClick(movieResult)}">
 
@@ -30,6 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:textColor="@android:color/black"
             android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,6 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_poster" />
 
         <TextView
+            android:textColor="@android:color/black"
             android:id="@+id/tv_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

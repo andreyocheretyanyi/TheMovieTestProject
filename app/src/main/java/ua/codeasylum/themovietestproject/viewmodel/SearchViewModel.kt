@@ -28,6 +28,9 @@ class SearchViewModel @Inject constructor(
 ) : AndroidViewModel(app) {
 
 
+    val searchTitle: String = "Search"
+    val searchPersonTitle = "People"
+    val genresTitle = "Genres"
     val enteredPersonNameObserver: Observer<String> by lazy {
         observeEnteredPersonName()
     }

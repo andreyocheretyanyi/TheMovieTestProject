@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.tabs.TabLayout
+            android:background="@android:color/white"
             android:id="@+id/tab_layout"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

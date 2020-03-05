@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +43,7 @@ class SearchFragment : BaseFragment() {
                 searchViewModel.error.value = ""
             }
         })
+        (activity as AppCompatActivity).supportActionBar?.title = searchViewModel.searchTitle
     }
 
 

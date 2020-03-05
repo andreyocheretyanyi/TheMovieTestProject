@@ -2,6 +2,7 @@ package ua.codeasylum.themovietestproject.view.home
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -45,6 +46,7 @@ class HomeFragment : BaseFragment() {
         TabLayoutMediator(binding.tabLayout, binding.vpHome) { tab, position ->
             tab.text = homeViewModel.fragmentNames[position]
         }.attach()
+        (activity as AppCompatActivity).supportActionBar?.title = homeViewModel.title
 
     }
 

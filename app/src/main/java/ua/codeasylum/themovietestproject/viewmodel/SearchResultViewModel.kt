@@ -15,6 +15,7 @@ class SearchResultViewModel @Inject constructor(
     navigation: NavController
 ) : MovieListViewModel(app, navigation, movieManager) {
 
+    val foundTitle: String = "Found Movies"
     lateinit var args: SearchResultFragmentArgs
 
     override fun onMovieClick(movie: MovieResult) {
