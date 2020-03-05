@@ -11,6 +11,7 @@ import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.base.notifyObserver
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
+import ua.codeasylum.themovietestproject.view.home.HomeFragmentDirections
 
 abstract class MovieListViewModel(
     app: App,
@@ -37,7 +38,9 @@ abstract class MovieListViewModel(
     }
 
     open fun onMovieClick(movie: MovieResult) {
-
+        navigation.navigate(
+            HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(movie)
+        )
     }
 
 }

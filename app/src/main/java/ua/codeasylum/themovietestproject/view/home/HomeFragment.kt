@@ -1,11 +1,12 @@
 package ua.codeasylum.themovietestproject.view.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.google.android.material.tabs.TabLayoutMediator
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
@@ -34,15 +35,28 @@ class HomeFragment : BaseFragment() {
         lifecycleOwner = this@HomeFragment.viewLifecycleOwner
         viewModel = homeViewModel
         binding = this
+        vpAdapter = HomeViewPagerAdapter(childFragmentManager, lifecycle)
+        binding.vpHome.adapter = vpAdapter
+        setHasOptionsMenu(true)
     }.root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (!::vpAdapter.isInitialized)
-            vpAdapter = HomeViewPagerAdapter(childFragmentManager, lifecycle)
-        binding.vpHome.adapter = vpAdapter
         TabLayoutMediator(binding.tabLayout, binding.vpHome) { tab, position ->
             tab.text = homeViewModel.fragmentNames[position]
         }.attach()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            findNavController()
+        ) || super.onOptionsItemSelected(item)
     }
 }
