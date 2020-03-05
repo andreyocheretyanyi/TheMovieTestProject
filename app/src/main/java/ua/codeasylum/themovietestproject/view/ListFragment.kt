@@ -9,10 +9,8 @@ import ua.codeasylum.themovietestproject.databinding.FragmentMoviesListBinding
 import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 
 abstract class ListFragment : BaseFragment() {
-    private lateinit var movieListViewModel: MovieListViewModel
 
-
-    protected fun getBinding(inflater : LayoutInflater,container : ViewGroup) : FragmentMoviesListBinding =
+    protected fun getBinding(inflater: LayoutInflater, container: ViewGroup?) : FragmentMoviesListBinding =
         DataBindingUtil.inflate(
         inflater,
         R.layout.fragment_movies_list,

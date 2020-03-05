@@ -5,5 +5,5 @@ import ua.codeasylum.themovietestproject.App
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(app : App) : AndroidViewModel(app) {
-    val fragmentNames = listOf<String>("All", "Top 100","Newest")
+    val fragmentNames = listOf("All", "Top Rated","Upcoming")
 }

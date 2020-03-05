@@ -1,4 +1,4 @@
-package ua.codeasylum.themovietestproject.view
+package ua.codeasylum.themovietestproject.view.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +10,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
 import ua.codeasylum.themovietestproject.databinding.FragmentHomeBinding
+import ua.codeasylum.themovietestproject.view.adapter.HomeViewPagerAdapter
 import ua.codeasylum.themovietestproject.viewmodel.home.HomeViewModel
 
 class HomeFragment : BaseFragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var vpAdapter: HomeViewPagerAdapter
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -28,7 +30,7 @@ class HomeFragment : BaseFragment() {
         false
     ).apply {
         homeViewModel =
-            ViewModelProvider(activity!!.viewModelStore, factory)[homeViewModel::class.java]
+            ViewModelProvider(activity!!.viewModelStore, factory)[HomeViewModel::class.java]
         lifecycleOwner = this@HomeFragment.viewLifecycleOwner
         viewModel = homeViewModel
         binding = this
@@ -36,6 +38,9 @@ class HomeFragment : BaseFragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (!::vpAdapter.isInitialized)
+            vpAdapter = HomeViewPagerAdapter(childFragmentManager, lifecycle)
+        binding.vpHome.adapter = vpAdapter
         TabLayoutMediator(binding.tabLayout, binding.vpHome) { tab, position ->
             tab.text = homeViewModel.fragmentNames[position]
         }.attach()

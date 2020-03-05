@@ -14,6 +14,8 @@ interface MovieRepository {
     fun getUpcoming(page : Int) : Single<MovieDto>
 
     fun getTopRated(page : Int) : Single<MovieDto>
+
+    fun getAll(page : Int) : Single<MovieDto>
 }
 
 

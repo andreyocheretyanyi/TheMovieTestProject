@@ -44,7 +44,7 @@ class MoviesDataSource(
                 callback.onResult(
                     when (type) {
                         RequestType.TopRated -> movieManager.fetchTopRated(page).blockingGet()
-                        RequestType.All -> movieManager.fetchTopRated(page).blockingGet()
+                        RequestType.All -> movieManager.fetchAll(page).blockingGet()
                         RequestType.Upcoming -> movieManager.fetchUpcoming(page).blockingGet()
 
 

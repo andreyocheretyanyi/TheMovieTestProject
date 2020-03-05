@@ -5,8 +5,8 @@ import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.model.dataSource.search.SearchMovieDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
-import ua.codeasylum.themovietestproject.view.SearchResultFragmentArgs
-import ua.codeasylum.themovietestproject.view.SearchResultFragmentDirections
+import ua.codeasylum.themovietestproject.view.search.SearchResultFragmentArgs
+import ua.codeasylum.themovietestproject.view.search.SearchResultFragmentDirections
 import javax.inject.Inject
 
 class SearchResultViewModel @Inject constructor(

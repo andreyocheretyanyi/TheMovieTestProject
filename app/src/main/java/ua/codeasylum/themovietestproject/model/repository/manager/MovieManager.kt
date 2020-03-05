@@ -66,6 +66,23 @@ class MovieManager constructor(
                 fillMovies(it)
             }
 
+    override fun fetchAll(page: Int): Single<MutableList<MovieResult>> =
+        movieCacheRepository.getAll(page)
+            .flatMap { cachedDto ->
+                if (cachedDto.results.isNotEmpty())
+                    Single.just(cachedDto)
+                else
+                    movieApiRepository.getAll(page)
+                        .map {
+                            movieCacheRepository.saveAll(it)
+                            return@map it
+                        }
+            }.flatMap {
+                fillMovies(it)
+            }
+
+
+
     private fun fillMovies(movieDto: MovieDto): Single<MutableList<MovieResult>> {
         val result = mutableListOf<MovieResult>()
         for (movie in movieDto.results) {

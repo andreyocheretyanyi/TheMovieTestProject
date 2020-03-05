@@ -1,4 +1,4 @@
-package ua.codeasylum.themovietestproject.view
+package ua.codeasylum.themovietestproject.view.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ua.codeasylum.themovietestproject.base.showToast
+import ua.codeasylum.themovietestproject.view.ListFragment
 import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
 
 class SearchResultFragment : ListFragment() {

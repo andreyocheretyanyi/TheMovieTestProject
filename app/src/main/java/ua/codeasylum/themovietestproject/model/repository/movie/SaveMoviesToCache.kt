@@ -7,4 +7,7 @@ interface SaveMoviesToCache {
     fun saveUpcoming(movieDto: MovieDto)
 
     fun saveTopRated(movieDto: MovieDto)
+
+    fun saveAll(movieDto: MovieDto)
+
 }

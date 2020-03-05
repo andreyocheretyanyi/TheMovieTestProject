@@ -46,5 +46,10 @@ class MovieApiRepository @Inject constructor(private val movieService: MovieServ
         movieService.getTopRated(BuildConfig.API_KEY, page)
             .subscribeOn(Schedulers.io())
 
+    override fun getAll(page: Int): Single<MovieDto> =
+        movieService.getAll(BuildConfig.API_KEY,page)
+            .subscribeOn(Schedulers.io())
+
+
 
 }

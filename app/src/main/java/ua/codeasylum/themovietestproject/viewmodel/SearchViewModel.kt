@@ -15,7 +15,7 @@ import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.manager.GenreManagerInterface
 import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
-import ua.codeasylum.themovietestproject.view.SearchFragmentDirections
+import ua.codeasylum.themovietestproject.view.search.SearchFragmentDirections
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
