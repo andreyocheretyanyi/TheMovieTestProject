@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -58,26 +59,6 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter( "app:movies", "app:haveToNotify", requireAll = true)
-    fun bindMovies(
-        recyclerView: RecyclerView,
-        pagedList: PagedList<MovieResult>?,
-        haveToNotify: Int
-    ) {
-//        with(recyclerView) {
-//            if (this.adapter == null) {
-//                adapter =
-//                recyclerView.layoutManager =
-//                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
-//            }
-//            pagedList?.apply {
-//                (adapter as MovieRecyclerAdapter).submitList(pagedList)
-//            }
-//
-//        }
-    }
-
-    @JvmStatic
     @BindingAdapter("app:parentViewModel", "app:movies", "app:haveToNotify", requireAll = true)
     fun bindFoundMovies(
         recyclerView: RecyclerView,
@@ -89,7 +70,7 @@ object BindingAdapters {
             if (this.adapter == null) {
                 adapter = MovieRecyclerAdapter(parentViewModel)
                 recyclerView.layoutManager =
-                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+                    GridLayoutManager(recyclerView.context, 2)
             }
             pagedList?.apply {
                 (adapter as MovieRecyclerAdapter).submitList(pagedList)
@@ -103,6 +84,7 @@ object BindingAdapters {
     fun bindImageUrl(imageView: ImageView, url: String) {
         Picasso.get()
             .load("https://image.tmdb.org/t/p/original$url")
+            .resize(500,750)
             .into(imageView)
     }
 

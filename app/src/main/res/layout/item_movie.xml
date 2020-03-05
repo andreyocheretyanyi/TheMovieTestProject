@@ -18,6 +18,17 @@
         android:layout_height="wrap_content"
         android:onClick="@{() -> parentViewModel.onMovieClick(movieResult)}">
 
+
+        <ImageView
+            android:id="@+id/iv_poster"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:imageUrl="@{movieResult.posterPath}"
+            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="0dp"
@@ -26,7 +37,7 @@
             android:text="@{movieResult.title}"
             app:layout_constraintEnd_toStartOf="@+id/tv_year"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_poster" />
 
         <TextView
             android:id="@+id/tv_year"
@@ -35,16 +46,7 @@
             android:padding="5dp"
             android:text="@{movieResult.releaseDate}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/background_dark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+            app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
