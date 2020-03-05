@@ -13,7 +13,7 @@ import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.view.adapter.GenreRecyclerAdapter
 import ua.codeasylum.themovietestproject.view.adapter.MovieRecyclerAdapter
 import ua.codeasylum.themovietestproject.view.adapter.PeopleRecyclerAdapter
-import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
+import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 object BindingAdapters {
@@ -58,10 +58,30 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("app:parentViewModel", "app:movies", "app:haveToNotify", requireAll = true)
+    @BindingAdapter( "app:movies", "app:haveToNotify", requireAll = true)
     fun bindMovies(
         recyclerView: RecyclerView,
-        parentViewModel: SearchResultViewModel,
+        pagedList: PagedList<MovieResult>?,
+        haveToNotify: Int
+    ) {
+//        with(recyclerView) {
+//            if (this.adapter == null) {
+//                adapter =
+//                recyclerView.layoutManager =
+//                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+//            }
+//            pagedList?.apply {
+//                (adapter as MovieRecyclerAdapter).submitList(pagedList)
+//            }
+//
+//        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:parentViewModel", "app:movies", "app:haveToNotify", requireAll = true)
+    fun bindFoundMovies(
+        recyclerView: RecyclerView,
+        parentViewModel: MovieListViewModel,
         pagedList: PagedList<MovieResult>?,
         haveToNotify: Int
     ) {

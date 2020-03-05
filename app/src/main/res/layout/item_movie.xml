@@ -5,7 +5,7 @@
 
         <variable
             name="parentViewModel"
-            type="ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel" />
+            type="ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel" />
 
         <variable
             name="movieResult"

@@ -1,4 +1,4 @@
-package ua.codeasylum.themovietestproject.viewmodel
+package ua.codeasylum.themovietestproject.viewmodel.home
 
 import androidx.lifecycle.AndroidViewModel
 import ua.codeasylum.themovietestproject.App

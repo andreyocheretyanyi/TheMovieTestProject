@@ -1,15 +1,23 @@
 package ua.codeasylum.themovietestproject.view
 
-import android.os.Bundle
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
-import ua.codeasylum.themovietestproject.viewmodel.ListViewModel
+import ua.codeasylum.themovietestproject.databinding.FragmentMoviesListBinding
+import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 
 abstract class ListFragment : BaseFragment() {
-    private lateinit var listViewModel: ListViewModel
+    private lateinit var movieListViewModel: MovieListViewModel
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        listViewModel.fetchData()
-    }
+    protected fun getBinding(inflater : LayoutInflater,container : ViewGroup) : FragmentMoviesListBinding =
+        DataBindingUtil.inflate(
+        inflater,
+        R.layout.fragment_movies_list,
+        container,
+        false
+    )
+
 }

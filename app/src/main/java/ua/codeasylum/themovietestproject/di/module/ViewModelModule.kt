@@ -7,6 +7,10 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ua.codeasylum.themovietestproject.di.scope.ViewModelKey
 import ua.codeasylum.themovietestproject.viewmodel.*
+import ua.codeasylum.themovietestproject.viewmodel.home.AllMoviesViewModel
+import ua.codeasylum.themovietestproject.viewmodel.home.HomeViewModel
+import ua.codeasylum.themovietestproject.viewmodel.home.NewestMovieViewModel
+import ua.codeasylum.themovietestproject.viewmodel.home.TopMoviesViewModel
 
 @Module
 abstract class ViewModelModule {

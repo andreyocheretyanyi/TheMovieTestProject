@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
 import ua.codeasylum.themovietestproject.databinding.FragmentHomeBinding
-import ua.codeasylum.themovietestproject.viewmodel.HomeViewModel
+import ua.codeasylum.themovietestproject.viewmodel.home.HomeViewModel
 
 class HomeFragment : BaseFragment() {
 

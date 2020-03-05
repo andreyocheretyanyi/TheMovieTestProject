@@ -3,16 +3,16 @@ package ua.codeasylum.themovietestproject.model.dataSource.movies
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
-import ua.codeasylum.themovietestproject.model.repository.manager.MovieManager
+import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
 
 class MoviesDataSource(
     val type: RequestType,
-    private val movieManager: MovieManager,
+    private val movieManager: MovieManagerInterface,
     private val errorLiveData: MutableLiveData<String>
 ) : ItemKeyedDataSource<Int, MovieResult>() {
 
     enum class RequestType {
-        TopRated, Upcoming
+        All, TopRated, Upcoming
     }
 
     private var isEnd = false
@@ -42,11 +42,13 @@ class MoviesDataSource(
         if (!isEnd)
             try {
                 callback.onResult(
-                    if (type == RequestType.TopRated)
-                        movieManager.fetchTopRated(page).blockingGet()
-                    else
-                        movieManager.fetchUpcoming(page).blockingGet()
+                    when (type) {
+                        RequestType.TopRated -> movieManager.fetchTopRated(page).blockingGet()
+                        RequestType.All -> movieManager.fetchTopRated(page).blockingGet()
+                        RequestType.Upcoming -> movieManager.fetchUpcoming(page).blockingGet()
 
+
+                    }
                 )
             } catch (e: Exception) {
                 errorLiveData.postValue(e.message)
