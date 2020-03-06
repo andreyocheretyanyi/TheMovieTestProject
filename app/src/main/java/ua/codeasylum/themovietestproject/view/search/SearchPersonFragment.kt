@@ -51,6 +51,5 @@ class SearchPersonFragment : BaseFragment() {
                 searchViewModel.error.value = it
             }
         })
-        (activity as AppCompatActivity).supportActionBar?.title = searchViewModel.searchPersonTitle
     }
 }

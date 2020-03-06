@@ -43,8 +43,6 @@ class SelectGenresFragment : BaseFragment() {
                 showToast(it)
                 searchViewModel.error.value = ""
             }
-        })
-        (activity as AppCompatActivity).supportActionBar?.title = searchViewModel.genresTitle
-    }
+        }) }
 
 }

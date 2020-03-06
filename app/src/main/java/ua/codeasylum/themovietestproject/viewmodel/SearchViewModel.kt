@@ -27,10 +27,6 @@ class SearchViewModel @Inject constructor(
     private val navController: NavController
 ) : AndroidViewModel(app) {
 
-
-    val searchTitle: String = "Search"
-    val searchPersonTitle = "People"
-    val genresTitle = "Genres"
     val enteredPersonNameObserver: Observer<String> by lazy {
         observeEnteredPersonName()
     }

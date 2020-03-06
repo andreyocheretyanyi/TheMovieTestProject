@@ -42,8 +42,6 @@ class SearchResultFragment : ListFragment() {
                 searchResultViewModel.error.value = ""
             }
         })
-        (activity as AppCompatActivity).supportActionBar?.title = searchResultViewModel.foundTitle
-
     }
 
 

@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="ua.codeasylum.themovietestproject.view.search.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="@string/search_fragment_title">
         <action
             android:id="@+id/action_searchFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/searchResultFragment"
         android:name="ua.codeasylum.themovietestproject.view.search.SearchResultFragment"
-        android:label="SearchResultFragment" >
+        android:label="@string/search_result_fragment_title">
         <action
             android:id="@+id/action_searchResultFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
@@ -39,13 +39,12 @@
             app:argType="string" />
         <argument
             android:name="isAdult"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="ua.codeasylum.themovietestproject.view.MovieDetailFragment"
-        android:label="MovieDetailFragment" >
+        android:name="ua.codeasylum.themovietestproject.view.MovieDetailFragment">
         <argument
             android:name="movie"
             app:argType="ua.codeasylum.themovietestproject.model.networkDto.MovieResult" />
@@ -53,15 +52,15 @@
     <fragment
         android:id="@+id/searchPeopleFragment"
         android:name="ua.codeasylum.themovietestproject.view.search.SearchPersonFragment"
-        android:label="SearchPeopleFragment" />
+        android:label="@string/people_fragment_title" />
     <fragment
         android:id="@+id/selectGenresFragment"
         android:name="ua.codeasylum.themovietestproject.view.search.SelectGenresFragment"
-        android:label="SelectGenresFragment" />
+        android:label="@string/genres_fragment_title" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="ua.codeasylum.themovietestproject.view.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="@string/home_fragment_title">
         <action
             android:id="@+id/action_homeFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />

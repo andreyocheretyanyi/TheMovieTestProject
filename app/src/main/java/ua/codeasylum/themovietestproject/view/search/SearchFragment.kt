@@ -43,7 +43,7 @@ class SearchFragment : BaseFragment() {
                 searchViewModel.error.value = ""
             }
         })
-        (activity as AppCompatActivity).supportActionBar?.title = searchViewModel.searchTitle
+
     }
 
 
