@@ -2,8 +2,12 @@ package ua.codeasylum.themovietestproject.base
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import ua.codeasylum.themovietestproject.App
 
@@ -20,4 +24,18 @@ fun App.isConnectedToNetwork(): Boolean {
 
 fun Fragment.showToast(text: String) {
     Toast.makeText(this.context,text, Toast.LENGTH_LONG).show()
+}
+
+fun <T> LiveData<T>.debounce(duration: Long = 1000L) = MediatorLiveData<T>().also { mld ->
+    val source = this
+    val handler = Handler(Looper.getMainLooper())
+
+    val runnable = Runnable {
+        mld.value = source.value
+    }
+
+    mld.addSource(source) {
+        handler.removeCallbacks(runnable)
+        handler.postDelayed(runnable, duration)
+    }
 }
