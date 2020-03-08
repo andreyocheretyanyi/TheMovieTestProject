@@ -82,9 +82,9 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("app:imageUrl")
-    fun bindImageUrl(imageView: ImageView, url: String) {
+    fun bindImageUrl(imageView: ImageView, url: String?) {
         Picasso.get()
-            .load("https://image.tmdb.org/t/p/original$url")
+            .load("https://image.tmdb.org/t/p/original${url ?: ""}")
             .placeholder(R.drawable.movies_paceholder)
             .resize(400,600)
             .into(imageView)

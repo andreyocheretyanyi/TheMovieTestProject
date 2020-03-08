@@ -19,8 +19,10 @@ class TopMoviesViewModel @Inject constructor(
 ) {
 
     override fun initMovieListDataFactory() {
-        movieDataSourceFactory =
-            MoviesDataSourceFactory(MoviesDataSource.RequestType.TopRated, movieManager, error)
-        configDataSource()
+        if(!isDataSourceInit()) {
+            movieDataSourceFactory =
+                MoviesDataSourceFactory(MoviesDataSource.RequestType.TopRated, movieManager, error)
+            configDataSource()
+        }
     }
 }

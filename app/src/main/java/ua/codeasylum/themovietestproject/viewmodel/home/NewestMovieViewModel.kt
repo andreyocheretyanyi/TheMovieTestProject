@@ -20,8 +20,10 @@ class NewestMovieViewModel @Inject constructor(
 
 
     override fun initMovieListDataFactory() {
-        movieDataSourceFactory =
-            MoviesDataSourceFactory(MoviesDataSource.RequestType.Upcoming, movieManager, error)
-        configDataSource()
+        if (!isDataSourceInit()) {
+            movieDataSourceFactory =
+                MoviesDataSourceFactory(MoviesDataSource.RequestType.Upcoming, movieManager, error)
+            configDataSource()
+        }
     }
 }

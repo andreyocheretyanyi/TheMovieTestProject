@@ -27,6 +27,8 @@ abstract class MovieListViewModel(
     abstract fun initMovieListDataFactory()
 
 
+    protected fun isDataSourceInit() = ::movieDataSourceFactory.isInitialized
+
     fun configDataSource() {
         val config = PagedList.Config.Builder()
             .setPageSize(20)

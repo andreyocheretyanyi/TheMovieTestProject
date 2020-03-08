@@ -19,9 +19,11 @@ class AllMoviesViewModel @Inject constructor(
 ) {
 
     override fun initMovieListDataFactory() {
-        movieDataSourceFactory =
-            MoviesDataSourceFactory(MoviesDataSource.RequestType.All, movieManager, error)
-        configDataSource()
+        if (!isDataSourceInit()) {
+            movieDataSourceFactory =
+                MoviesDataSourceFactory(MoviesDataSource.RequestType.All, movieManager, error)
+            configDataSource()
+        }
     }
 
 }
