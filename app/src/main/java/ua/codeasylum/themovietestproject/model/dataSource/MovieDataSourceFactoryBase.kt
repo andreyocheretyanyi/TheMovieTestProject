@@ -1,9 +1,11 @@
 package ua.codeasylum.themovietestproject.model.dataSource
 
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
+import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 
-interface MovieDataSourceFactoryBase {
+abstract class MovieDataSourceFactoryBase : DataSource.Factory<Int, MovieResult>() {
 
-    fun passErrorLiveData(mutableLiveData: MutableLiveData<String>)
+     abstract fun passErrorLiveData(mutableLiveData: MutableLiveData<String>)
 
 }

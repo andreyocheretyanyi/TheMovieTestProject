@@ -1,10 +1,9 @@
 package ua.codeasylum.themovietestproject.viewmodel
 
 import androidx.navigation.NavController
-import androidx.paging.DataSource
 import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.base.searchDataSource
-import ua.codeasylum.themovietestproject.model.dataSource.movies.MoviesDataSourceFactory
+import ua.codeasylum.themovietestproject.model.dataSource.MovieDataSourceFactoryBase
 import ua.codeasylum.themovietestproject.model.dataSource.search.SearchMovieDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
@@ -18,7 +17,7 @@ class SearchResultViewModel @Inject constructor(
     movieManager: MovieManagerInterface,
     navigation: NavController,
     @Named(searchDataSource)
-    moviesDataSourceFactory: DataSource.Factory<Int, MovieResult>
+    moviesDataSourceFactory: MovieDataSourceFactoryBase
 ) : MovieListViewModel(app, navigation, movieManager, moviesDataSourceFactory) {
 
     var args: SearchResultFragmentArgs? = null

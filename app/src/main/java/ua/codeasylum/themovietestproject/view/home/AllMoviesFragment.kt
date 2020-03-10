@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import ua.codeasylum.themovietestproject.view.ListFragment
+import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 import ua.codeasylum.themovietestproject.viewmodel.home.AllMoviesViewModel
 
 class AllMoviesFragment : ListFragment() {
-    
-    private lateinit var allMoviesViewModel : AllMoviesViewModel
+
+    private lateinit var allMoviesViewModel: AllMoviesViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,4 +28,6 @@ class AllMoviesFragment : ListFragment() {
         viewModel = allMoviesViewModel
 
     }.root
+
+    override fun getViewModel(): MovieListViewModel = allMoviesViewModel
 }
