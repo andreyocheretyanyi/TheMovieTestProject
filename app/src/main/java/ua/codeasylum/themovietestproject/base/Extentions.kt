@@ -23,7 +23,7 @@ fun App.isConnectedToNetwork(): Boolean {
 
 
 fun Fragment.showToast(text: String) {
-    Toast.makeText(this.context,text, Toast.LENGTH_LONG).show()
+    Toast.makeText(this.activity, text, Toast.LENGTH_LONG).show()
 }
 
 fun <T> LiveData<T>.debounce(duration: Long = 1000L) = MediatorLiveData<T>().also { mld ->
