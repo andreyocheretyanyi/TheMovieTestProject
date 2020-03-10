@@ -7,9 +7,10 @@ import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerIn
 
 class MoviesDataSource(
     val type: RequestType,
-    private val movieManager: MovieManagerInterface,
-    private val errorLiveData: MutableLiveData<String>
+    private val movieManager: MovieManagerInterface
 ) : ItemKeyedDataSource<Int, MovieResult>() {
+
+    private lateinit var errorLiveData: MutableLiveData<String>
 
     enum class RequestType {
         All, TopRated, Upcoming
@@ -51,7 +52,12 @@ class MoviesDataSource(
                     }
                 )
             } catch (e: Exception) {
-                errorLiveData.postValue(e.message)
+                if (::errorLiveData.isInitialized)
+                    errorLiveData.postValue(e.message)
             }
+    }
+
+    fun passErrorLiveData(mutableLiveData: MutableLiveData<String>) {
+        errorLiveData = mutableLiveData
     }
 }

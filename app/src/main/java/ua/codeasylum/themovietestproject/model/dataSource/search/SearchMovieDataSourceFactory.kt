@@ -2,30 +2,32 @@ package ua.codeasylum.themovietestproject.model.dataSource.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import ua.codeasylum.themovietestproject.model.dataSource.MovieDataSourceFactoryBase
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
 
 class SearchMovieDataSourceFactory(
-    private val movieManager: MovieManagerInterface,
-    private val year: String,
-    private val movieQuery: String,
-    private val genresIds: String,
-    private val personId: String,
-    private val isAdult: Boolean,
-    private val errorLiveData: MutableLiveData<String>
-) : DataSource.Factory<Int, MovieResult>() {
+    private val searchMovieDataSource: SearchMovieDataSource
+) : DataSource.Factory<Int, MovieResult>(), MovieDataSourceFactoryBase {
 
 
 
-    override fun create(): DataSource<Int, MovieResult> =
-        SearchMovieDataSource(
-            movieManager,
-            year,
-            movieQuery,
-            genresIds,
-            personId,
-            isAdult,
-            errorLiveData
-        )
+    fun updateArgs(
+        year: String,
+        movieQuery: String,
+        genresIds: String,
+        personId: String,
+        isAdult: Boolean
+    ) {
+        searchMovieDataSource.updateArgs(year, movieQuery, genresIds, personId, isAdult)
+    }
+
+
+    override fun create(): DataSource<Int, MovieResult> = searchMovieDataSource
+
+    override fun passErrorLiveData(mutableLiveData: MutableLiveData<String>) {
+        searchMovieDataSource.passErrorLiveData(mutableLiveData)
+    }
+
 
 }

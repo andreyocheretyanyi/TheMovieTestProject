@@ -25,7 +25,6 @@ class UpcomingMoviesFragment : ListFragment() {
             )[NewestMovieViewModel::class.java]
         lifecycleOwner = this@UpcomingMoviesFragment.viewLifecycleOwner
         viewModel = newestMovieViewModel
-        newestMovieViewModel.initMovieListDataFactory()
 
     }.root
 }

@@ -27,11 +27,9 @@ class SearchResultFragment : ListFragment() {
                 activity!!.viewModelStore,
                 factory
             )[SearchResultViewModel::class.java]
+        searchResultViewModel.args = args
         lifecycleOwner = this@SearchResultFragment.viewLifecycleOwner
         viewModel = searchResultViewModel
-        searchResultViewModel.args = args
-        searchResultViewModel.initMovieListDataFactory()
-
     }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

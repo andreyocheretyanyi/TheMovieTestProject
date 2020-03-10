@@ -24,7 +24,6 @@ class AllMoviesFragment : ListFragment() {
             )[AllMoviesViewModel::class.java]
         lifecycleOwner = this@AllMoviesFragment.viewLifecycleOwner
         viewModel = allMoviesViewModel
-        allMoviesViewModel.initMovieListDataFactory()
 
     }.root
 }

@@ -16,24 +16,34 @@ import ua.codeasylum.themovietestproject.view.home.HomeFragmentDirections
 abstract class MovieListViewModel(
     app: App,
     protected val navigation: NavController,
-    val movieManager: MovieManagerInterface
+    val movieManager: MovieManagerInterface,
+    dataSourceFactory: DataSource.Factory<Int, MovieResult>
 ) : AndroidViewModel(app) {
 
-    protected lateinit var movieDataSourceFactory: DataSource.Factory<Int, MovieResult>
-    var movies: LiveData<PagedList<MovieResult>> = MutableLiveData()
+    protected var dataSourceFactory: DataSource.Factory<Int, MovieResult>? = null
+        set(value) {
+            if (value != null) {
+                field = value
+                configDataSource(value)
+            }
+        }
+
+    lateinit var movies: LiveData<PagedList<MovieResult>>
     val haveToNotifyBindingAdapter = MutableLiveData(1)
     val error = MutableLiveData("")
 
-    abstract fun initMovieListDataFactory()
+    init {
+        this.dataSourceFactory = dataSourceFactory
+    }
 
 
-    fun configDataSource() {
+   private fun configDataSource(dataSourceFactory: DataSource.Factory<Int, MovieResult>) {
         val config = PagedList.Config.Builder()
             .setPageSize(20)
             .setEnablePlaceholders(false)
             .build()
         movies =
-            LivePagedListBuilder<Int, MovieResult>(movieDataSourceFactory, config).build()
+            LivePagedListBuilder<Int, MovieResult>(dataSourceFactory, config).build()
         haveToNotifyBindingAdapter.notifyObserver()
     }
 
