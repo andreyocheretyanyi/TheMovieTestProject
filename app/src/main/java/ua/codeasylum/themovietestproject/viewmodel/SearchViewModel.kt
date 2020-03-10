@@ -1,25 +1,21 @@
 package ua.codeasylum.themovietestproject.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.subjects.PublishSubject
 import ua.codeasylum.themovietestproject.App
 import ua.codeasylum.themovietestproject.R
+import ua.codeasylum.themovietestproject.base.debounce
 import ua.codeasylum.themovietestproject.base.notifyObserver
-import ua.codeasylum.themovietestproject.model.dataSource.PeopleDataSourceFactory
+import ua.codeasylum.themovietestproject.model.dataSource.people.PeopleDataSourceFactory
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.manager.GenreManagerInterface
 import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
-import ua.codeasylum.themovietestproject.view.SearchFragmentDirections
-import ua.codeasylum.themovietestproject.view.SearchResultFragmentDirections
-import java.util.concurrent.TimeUnit
+import ua.codeasylum.themovietestproject.view.search.SearchFragmentDirections
 import javax.inject.Inject
 
 
@@ -30,12 +26,10 @@ class SearchViewModel @Inject constructor(
     private val navController: NavController
 ) : AndroidViewModel(app) {
 
-
     val enteredPersonNameObserver: Observer<String> by lazy {
         observeEnteredPersonName()
     }
     private lateinit var genresDisposable: Disposable
-    private lateinit var peopleDisposable: Disposable
 
     private val genresQuery by lazy {
         MutableLiveData("")
@@ -43,22 +37,18 @@ class SearchViewModel @Inject constructor(
     private val personQuery by lazy {
         MutableLiveData("")
     }
-    private val searchPublishSubject by lazy {
-        PublishSubject.create<String>()
-    }
+
     private lateinit var peoplerDataSourceFactory: PeopleDataSourceFactory
 
 
     val query = MutableLiveData("")
     val year = MutableLiveData("")
     val selectedPersonName = MutableLiveData("")
-    val openSelectGenre = MutableLiveData(false)
-    val openPersonSearch = MutableLiveData(false)
     val genresText = MutableLiveData("")
     val allGenres: MutableLiveData<MutableList<Genre>> = MutableLiveData(mutableListOf())
     val selectedGenres: MutableLiveData<MutableList<Genre>> = MutableLiveData(mutableListOf())
     var foundPeople: LiveData<PagedList<Person>> = MutableLiveData()
-    val personSearchedName = MutableLiveData("")
+    val personSearchedName = MutableLiveData("").debounce(500L)
     val haveToNotifyPeopleBindingAdapter = MutableLiveData(1)
     val error = MutableLiveData("")
     val isAdult = MutableLiveData(false)
@@ -109,10 +99,12 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun observeEnteredPersonName(): Observer<String> = Observer {
-        val name = personSearchedName.value ?: ""
-        if (name.isNotEmpty())
-            searchPublishSubject
-                .onNext(name)
+        try {
+            updateDataSourceFactoryAndSearchQuery(personSearchedName.value ?: "")
+        } catch (e: Exception) {
+            error.value = e.message
+        }
+
 
     }
 
@@ -159,29 +151,23 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun subscribePersonSearchTextChange() {
 
-        if (::peopleDisposable.isInitialized && !peopleDisposable.isDisposed)
-            peopleDisposable.dispose()
-        peoplerDataSourceFactory = PeopleDataSourceFactory(peopleManager, error, "")
-        peopleDisposable = searchPublishSubject
-            .debounce(500, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                initPersonDataSourceFactory(it)
-            }, {
-                error.value = it.message
-            })
-
-    }
-
-    private fun initPersonDataSourceFactory(name: String) {
-        peoplerDataSourceFactory.name = name
+    private fun updateDataSourceFactoryAndSearchQuery(name: String) {
+        if (!::peoplerDataSourceFactory.isInitialized)
+            peoplerDataSourceFactory =
+                PeopleDataSourceFactory(
+                    peopleManager,
+                    error,
+                    name
+                )
+        else
+            peoplerDataSourceFactory.name = name
 
         val config = PagedList.Config.Builder()
             .setPageSize(20)
             .setEnablePlaceholders(false)
             .build()
+
         foundPeople =
             LivePagedListBuilder<Int, Person>(peoplerDataSourceFactory, config).build()
         haveToNotifyPeopleBindingAdapter.notifyObserver()

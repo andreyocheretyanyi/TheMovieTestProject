@@ -11,6 +11,11 @@
     <string name="click_to_select_person">Click to select person</string>
     <string name="with_adult">Search with the adult content</string>
     <string name="search">Search</string>
+    <string name="home_fragment_title">Home</string>
+    <string name="search_fragment_title">Search Movies</string>
+    <string name="people_fragment_title">People</string>
+    <string name="genres_fragment_title">Genres</string>
+    <string name="search_result_fragment_title">Found Movies</string>
     <string name="original_language">Original language: %1$s</string>
     <string name="nothing_to_show">Nothing to show</string>
 </resources>

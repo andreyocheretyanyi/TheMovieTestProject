@@ -10,4 +10,10 @@ interface MovieManagerInterface {
     fun fetchMoviesByAgruments(
         movieArgs: MovieArgs
     ): Single<MutableList<MovieResult>>
+
+    fun fetchTopRated(page : Int) : Single<MutableList<MovieResult>>
+
+    fun fetchUpcoming(page : Int) : Single<MutableList<MovieResult>>
+
+    fun fetchAll(page : Int) : Single<MutableList<MovieResult>>
 }

@@ -1,4 +1,4 @@
-package ua.codeasylum.themovietestproject.model.dataSource
+package ua.codeasylum.themovietestproject.model.dataSource.people
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
@@ -21,7 +21,12 @@ class PeopleDataSourceFactory(private val peopleManager: PeopleManagerInterface,
     private val dataSourceLiveData = MutableLiveData<PeopleDataSource>()
 
     override fun create(): DataSource<Int, Person> {
-        peopleDataSource = PeopleDataSource(peopleManager, name,errorLiveData)
+        peopleDataSource =
+            PeopleDataSource(
+                peopleManager,
+                name,
+                errorLiveData
+            )
         dataSourceLiveData.postValue(peopleDataSource)
         return peopleDataSource
     }

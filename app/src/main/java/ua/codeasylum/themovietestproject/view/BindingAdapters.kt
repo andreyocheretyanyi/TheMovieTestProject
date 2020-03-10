@@ -4,16 +4,18 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.view.adapter.GenreRecyclerAdapter
 import ua.codeasylum.themovietestproject.view.adapter.MovieRecyclerAdapter
 import ua.codeasylum.themovietestproject.view.adapter.PeopleRecyclerAdapter
-import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
+import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
 object BindingAdapters {
@@ -59,9 +61,9 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("app:parentViewModel", "app:movies", "app:haveToNotify", requireAll = true)
-    fun bindMovies(
+    fun bindFoundMovies(
         recyclerView: RecyclerView,
-        parentViewModel: SearchResultViewModel,
+        parentViewModel: MovieListViewModel,
         pagedList: PagedList<MovieResult>?,
         haveToNotify: Int
     ) {
@@ -69,7 +71,7 @@ object BindingAdapters {
             if (this.adapter == null) {
                 adapter = MovieRecyclerAdapter(parentViewModel)
                 recyclerView.layoutManager =
-                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+                    GridLayoutManager(recyclerView.context, 2)
             }
             pagedList?.apply {
                 (adapter as MovieRecyclerAdapter).submitList(pagedList)
@@ -80,9 +82,11 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("app:imageUrl")
-    fun bindImageUrl(imageView: ImageView, url: String) {
+    fun bindImageUrl(imageView: ImageView, url: String?) {
         Picasso.get()
-            .load("https://image.tmdb.org/t/p/original$url")
+            .load("https://image.tmdb.org/t/p/original${url ?: ""}")
+            .placeholder(R.drawable.movies_paceholder)
+            .resize(400,600)
             .into(imageView)
     }
 

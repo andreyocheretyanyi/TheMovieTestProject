@@ -1,13 +1,13 @@
-package ua.codeasylum.themovietestproject.view
+package ua.codeasylum.themovietestproject.view.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
 import ua.codeasylum.themovietestproject.base.showToast
@@ -43,7 +43,6 @@ class SelectGenresFragment : BaseFragment() {
                 showToast(it)
                 searchViewModel.error.value = ""
             }
-        })
-    }
+        }) }
 
 }

@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ua.codeasylum.themovietestproject.databinding.ItemMovieBinding
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
-import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
+import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 
-class MovieRecyclerAdapter(val parentViewModel: SearchResultViewModel) :
+class MovieRecyclerAdapter(val parentViewModel: MovieListViewModel) :
     PagedListAdapter<MovieResult, MovieViewHolder>(
         movieDiffCallback
     ) {

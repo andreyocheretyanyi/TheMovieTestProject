@@ -1,21 +1,20 @@
-package ua.codeasylum.themovietestproject.view
+package ua.codeasylum.themovietestproject.view.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.base.BaseFragment
 import ua.codeasylum.themovietestproject.base.showToast
-import ua.codeasylum.themovietestproject.databinding.FragmentSearchMoviesBinding
+import ua.codeasylum.themovietestproject.databinding.FragmentSearchPeopleBinding
 import ua.codeasylum.themovietestproject.viewmodel.SearchViewModel
 
-class SearchFragment : BaseFragment() {
+class SearchPersonFragment : BaseFragment() {
 
     lateinit var searchViewModel: SearchViewModel
 
@@ -23,28 +22,33 @@ class SearchFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = DataBindingUtil.inflate<FragmentSearchMoviesBinding>(
+    ): View? = DataBindingUtil.inflate<FragmentSearchPeopleBinding>(
         inflater,
-        R.layout.fragment_search_movies,
+        R.layout.fragment_search_people,
         container,
         false
-    ).apply {
-        searchViewModel =
-            ViewModelProvider(activity!!.viewModelStore, factory)[SearchViewModel::class.java]
-        lifecycleOwner = this@SearchFragment.viewLifecycleOwner
-        viewModel = searchViewModel
-    }.root
+    )
+        .apply {
+            lifecycleOwner = this@SearchPersonFragment.viewLifecycleOwner
+            searchViewModel = ViewModelProvider(
+                activity!!.viewModelStore,
+                factory
+            )[SearchViewModel::class.java]
+            viewModel = searchViewModel
+        }.root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        searchViewModel.personSearchedName.observe(
+            this.viewLifecycleOwner,
+            searchViewModel.enteredPersonNameObserver
+        )
         searchViewModel.error.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 showToast(it)
-                searchViewModel.error.value = ""
+                searchViewModel.error.value = it
             }
         })
     }
-
-
 }

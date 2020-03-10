@@ -10,23 +10,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black"
         android:orientation="vertical"
         android:padding="8dp">
 
-        <TextView
-            android:id="@+id/tv_film_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.movieTitle}"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_film_image"
@@ -37,7 +26,7 @@
             app:layout_constraintDimensionRatio="H,3:4"
             app:layout_constraintEnd_toStartOf="@+id/gl_end"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_film_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_end"
@@ -48,22 +37,22 @@
 
         <TextView
             android:id="@+id/tv_realise_date"
+            style="@style/MovieDetailTexViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@{viewModel.rDate}"
-            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_end"
             app:layout_constraintTop_toTopOf="@+id/iv_film_image" />
 
         <TextView
             android:id="@+id/tv_original_language"
+            style="@style/MovieDetailTexViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@{@string/original_language(viewModel.originalLang)}"
-            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_end"
             app:layout_constraintTop_toBottomOf="@+id/tv_realise_date" />
@@ -84,11 +73,11 @@
 
         <TextView
             android:id="@+id/tv_star"
+            style="@style/MovieDetailTexViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/btn_star_big_on"
             android:text="@{viewModel.rating}"
-            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@+id/iv_star"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -96,22 +85,37 @@
             app:layout_constraintTop_toTopOf="@+id/iv_star" />
 
         <TextView
-            android:layout_marginStart="8dp"
+            android:id="@+id/tv_genres"
+            style="@style/MovieDetailTexViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@{viewModel.genres}"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/gl_end"
             app:layout_constraintTop_toBottomOf="@+id/iv_star" />
 
         <TextView
+            android:id="@+id/tv_cast"
+            android:layout_marginTop="5dp"
+            style="@style/MovieDetailTexViewStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{viewModel.genres}"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/gl_end"
+            app:layout_constraintTop_toBottomOf="@+id/tv_genres" />
+
+        <TextView
+            style="@style/MovieDetailTexViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@{viewModel.movieDescription}"
-            android:textColor="@android:color/white"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_film_image" />

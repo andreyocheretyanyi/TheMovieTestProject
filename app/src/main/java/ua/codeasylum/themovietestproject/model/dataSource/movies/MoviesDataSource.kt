@@ -1,21 +1,20 @@
-package ua.codeasylum.themovietestproject.model.dataSource
+package ua.codeasylum.themovietestproject.model.dataSource.movies
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
-import ua.codeasylum.themovietestproject.model.repository.movie.MovieArgs
-import java.lang.Exception
 
-class MovieDataSource(
-    private val movieManager: MovieManagerInterface,
-    private val year: String,
-    private val movieQuery: String,
-    private val genresIds: String,
-    private val personId: String,
-    private val isAdult: Boolean,
-    private val errorLiveData: MutableLiveData<String>
+class MoviesDataSource(
+    val type: RequestType,
+    private val movieManager: MovieManagerInterface
 ) : ItemKeyedDataSource<Int, MovieResult>() {
+
+    private lateinit var errorLiveData: MutableLiveData<String>
+
+    enum class RequestType {
+        All, TopRated, Upcoming
+    }
 
     private var isEnd = false
 
@@ -44,19 +43,21 @@ class MovieDataSource(
         if (!isEnd)
             try {
                 callback.onResult(
-                    movieManager.fetchMoviesByAgruments(
-                        MovieArgs(
-                            movieQuery,
-                            isAdult,
-                            page,
-                            if (year.isNotEmpty()) year.toInt() else null,
-                            genresIds,
-                            personId
-                        )
-                    ).blockingGet()
+                    when (type) {
+                        RequestType.TopRated -> movieManager.fetchTopRated(page).blockingGet()
+                        RequestType.All -> movieManager.fetchAll(page).blockingGet()
+                        RequestType.Upcoming -> movieManager.fetchUpcoming(page).blockingGet()
+
+
+                    }
                 )
             } catch (e: Exception) {
-                errorLiveData.postValue(e.message)
+                if (::errorLiveData.isInitialized)
+                    errorLiveData.postValue(e.message)
             }
+    }
+
+    fun passErrorLiveData(mutableLiveData: MutableLiveData<String>) {
+        errorLiveData = mutableLiveData
     }
 }

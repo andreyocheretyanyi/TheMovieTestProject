@@ -1,4 +1,4 @@
-package ua.codeasylum.themovietestproject.model.dataSource
+package ua.codeasylum.themovietestproject.model.dataSource.people
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
