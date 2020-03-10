@@ -17,13 +17,20 @@
             type="ua.codeasylum.themovietestproject.viewmodel.SearchViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() -> parentViewModel.onSelectSingleGenre(genre,selected)}"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <TextView
+            android:layout_weight="1"
             android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,8 +55,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        </LinearLayout>
+
         <View
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="10dp"
             android:background="@android:color/background_dark"
@@ -58,5 +67,5 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

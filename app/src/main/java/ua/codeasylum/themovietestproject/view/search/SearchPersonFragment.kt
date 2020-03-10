@@ -40,7 +40,6 @@ class SearchPersonFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchViewModel.subscribePersonSearchTextChange()
         searchViewModel.personSearchedName.observe(
             this.viewLifecycleOwner,
             searchViewModel.enteredPersonNameObserver
