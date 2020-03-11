@@ -4,17 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
-import java.lang.Exception
 
 class PeopleDataSource(
-    private val peopleManager: PeopleManagerInterface,
-    var name: String,
-    private val errorLiveData: MutableLiveData<String>
-
+    private val peopleManager: PeopleManagerInterface
 ) : ItemKeyedDataSource<Int, Person>() {
 
     private var isEnd = false
-
+    private lateinit var errorLiveData: MutableLiveData<String>
+    private var name: String = ""
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
@@ -43,8 +40,18 @@ class PeopleDataSource(
 
                 callback.onResult(peopleManager.searchPeople(name, page).blockingGet())
             } catch (e: Exception) {
-                errorLiveData.postValue(e.message)
+                if (::errorLiveData.isInitialized)
+                    errorLiveData.postValue(e.message)
             }
+    }
+
+    fun updateName(name: String) {
+        this.name = name
+        isEnd = false
+    }
+
+    fun passErrorLiveData(liveData: MutableLiveData<String>) {
+        errorLiveData = liveData
     }
 
 

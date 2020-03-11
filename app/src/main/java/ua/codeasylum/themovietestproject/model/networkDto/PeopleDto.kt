@@ -19,6 +19,8 @@ data class Person(
     val id: Int = 0,
     @SerializedName("name")
     val name: String = "",
+    @SerializedName("profile_path")
+    val profilePath: String = "",
     var page: Int = 0,
     var totalPages: Int = 0
 

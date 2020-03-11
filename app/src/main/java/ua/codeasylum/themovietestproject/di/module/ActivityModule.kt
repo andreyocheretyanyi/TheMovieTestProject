@@ -14,9 +14,12 @@ import ua.codeasylum.themovietestproject.di.scope.ActivityScope
 import ua.codeasylum.themovietestproject.model.dataSource.MovieDataSourceFactoryBase
 import ua.codeasylum.themovietestproject.model.dataSource.movies.MoviesDataSource
 import ua.codeasylum.themovietestproject.model.dataSource.movies.MoviesDataSourceFactory
+import ua.codeasylum.themovietestproject.model.dataSource.people.PeopleDataSource
+import ua.codeasylum.themovietestproject.model.dataSource.people.PeopleDataSourceFactory
 import ua.codeasylum.themovietestproject.model.dataSource.search.SearchMovieDataSource
 import ua.codeasylum.themovietestproject.model.dataSource.search.SearchMovieDataSourceFactory
 import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
+import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
 import javax.inject.Named
 
 @Module
@@ -63,5 +66,10 @@ class ActivityModule {
             MoviesDataSource.RequestType.Upcoming,
             MoviesDataSource(MoviesDataSource.RequestType.Upcoming, movieManger)
         )
+
+    @Provides
+    @ActivityScope
+    fun providePeopleDataSourceFactory(peopleManagerInterface: PeopleManagerInterface) =
+        PeopleDataSourceFactory(PeopleDataSource(peopleManagerInterface))
 
 }

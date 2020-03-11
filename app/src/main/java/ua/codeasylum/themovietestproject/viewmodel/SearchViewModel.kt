@@ -1,6 +1,9 @@
 package ua.codeasylum.themovietestproject.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -14,7 +17,6 @@ import ua.codeasylum.themovietestproject.model.dataSource.people.PeopleDataSourc
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.Person
 import ua.codeasylum.themovietestproject.model.repository.manager.GenreManagerInterface
-import ua.codeasylum.themovietestproject.model.repository.manager.PeopleManagerInterface
 import ua.codeasylum.themovietestproject.view.search.SearchFragmentDirections
 import javax.inject.Inject
 
@@ -22,8 +24,8 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     app: App,
     private val genreManager: GenreManagerInterface,
-    private val peopleManager: PeopleManagerInterface,
-    private val navController: NavController
+    private val navController: NavController,
+    private val peopleDataSourceFactory: PeopleDataSourceFactory
 ) : AndroidViewModel(app) {
 
     val enteredPersonNameObserver: Observer<String> by lazy {
@@ -38,7 +40,10 @@ class SearchViewModel @Inject constructor(
         MutableLiveData("")
     }
 
-    private lateinit var peoplerDataSourceFactory: PeopleDataSourceFactory
+    private val config: PagedList.Config = PagedList.Config.Builder()
+        .setPageSize(20)
+        .setEnablePlaceholders(false)
+        .build()
 
 
     val query = MutableLiveData("")
@@ -52,6 +57,10 @@ class SearchViewModel @Inject constructor(
     val haveToNotifyPeopleBindingAdapter = MutableLiveData(1)
     val error = MutableLiveData("")
     val isAdult = MutableLiveData(false)
+
+    init {
+        peopleDataSourceFactory.passErrorLiveData(error)
+    }
 
 
     fun onSearchClick() {
@@ -153,25 +162,9 @@ class SearchViewModel @Inject constructor(
 
 
     private fun updateDataSourceFactoryAndSearchQuery(name: String) {
-        if (!::peoplerDataSourceFactory.isInitialized)
-            peoplerDataSourceFactory =
-                PeopleDataSourceFactory(
-                    peopleManager,
-                    error,
-                    name
-                )
-        else
-            peoplerDataSourceFactory.name = name
-
-        val config = PagedList.Config.Builder()
-            .setPageSize(20)
-            .setEnablePlaceholders(false)
-            .build()
-
-        foundPeople =
-            LivePagedListBuilder<Int, Person>(peoplerDataSourceFactory, config).build()
+        peopleDataSourceFactory.name = name
+        foundPeople = LivePagedListBuilder<Int, Person>(peopleDataSourceFactory, config).build()
         haveToNotifyPeopleBindingAdapter.notifyObserver()
-
     }
 
     fun personSelected(person: Person) {
