@@ -50,7 +50,7 @@ object BindingAdapters {
             if (this.adapter == null) {
                 adapter = PeopleRecyclerAdapter(parentViewModel)
                 recyclerView.layoutManager =
-                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+                    GridLayoutManager(recyclerView.context, 3)
             }
             pagedList?.apply {
                 (adapter as PeopleRecyclerAdapter).submitList(pagedList)
@@ -86,7 +86,7 @@ object BindingAdapters {
         Picasso.get()
             .load("https://image.tmdb.org/t/p/original${url ?: ""}")
             .placeholder(R.drawable.movies_paceholder)
-            .resize(400,600)
+            .resize(400, 600)
             .into(imageView)
     }
 

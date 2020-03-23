@@ -17,7 +17,7 @@ class PeopleDataSourceFactory(
 
     override fun create(): DataSource<Int, Person> = peopleDataSource
 
-    public fun passErrorLiveData(liveData: MutableLiveData<String>) {
+    fun passErrorLiveData(liveData: MutableLiveData<String>) {
         peopleDataSource.passErrorLiveData(liveData)
     }
 }
