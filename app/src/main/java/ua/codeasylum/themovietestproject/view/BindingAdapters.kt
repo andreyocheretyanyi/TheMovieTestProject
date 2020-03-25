@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import ua.codeasylum.themovietestproject.R
+import ua.codeasylum.themovietestproject.base.transformation.RoundTransformation
 import ua.codeasylum.themovietestproject.model.networkDto.Genre
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.networkDto.Person
@@ -86,6 +87,7 @@ object BindingAdapters {
         Picasso.get()
             .load("https://image.tmdb.org/t/p/original${url ?: ""}")
             .placeholder(R.drawable.movies_paceholder)
+            .transform(RoundTransformation(10F, 10, 10F, 10))
             .resize(400, 600)
             .into(imageView)
     }
