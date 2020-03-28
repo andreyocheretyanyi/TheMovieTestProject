@@ -37,6 +37,12 @@ abstract class MovieListViewModel(
         dataSourceFactory.passErrorLiveData(error)
     }
 
+    fun updateConfig() {
+        dataSourceFactory?.apply {
+            configDataSource(this)
+        }
+
+    }
 
     private fun configDataSource(dataSourceFactory: MovieDataSourceFactoryBase) {
         val config = PagedList.Config.Builder()

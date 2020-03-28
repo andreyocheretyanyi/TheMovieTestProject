@@ -32,6 +32,7 @@ class SearchMovieDataSource(
         this.personId = personId
         this.isAdult = isAdult
         argsIsInit = true
+        isEnd = false
     }
 
     override fun loadInitial(

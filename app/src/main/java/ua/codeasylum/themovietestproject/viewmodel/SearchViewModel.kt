@@ -67,13 +67,13 @@ class SearchViewModel @Inject constructor(
         val year = year.value ?: ""
         val movieQuery = query.value ?: ""
         val genresId = genresQuery.value ?: ""
-        val personName = personQuery.value ?: ""
+        val personId = personQuery.value ?: ""
         val isAdult = isAdult.value ?: false
 
-        if (year.isNotEmpty() || movieQuery.isNotEmpty() || genresId.isNotEmpty() || personName.isNotEmpty())
+        if (year.isNotEmpty() || movieQuery.isNotEmpty() || genresId.isNotEmpty() || personId.isNotEmpty())
             navController.navigate(
                 SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(
-                    year, movieQuery, genresId, personName, isAdult
+                    year, movieQuery, genresId, personId, isAdult
                 )
             ) else {
             error.value = getApplication<App>().getString(R.string.fill_in_at_least_one_field)

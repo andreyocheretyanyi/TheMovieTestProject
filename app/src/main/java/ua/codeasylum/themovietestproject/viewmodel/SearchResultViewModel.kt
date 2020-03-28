@@ -23,6 +23,7 @@ class SearchResultViewModel @Inject constructor(
     var args: SearchResultFragmentArgs? = null
         set(value) {
             value?.apply {
+                updateConfig()
                 (dataSourceFactory as SearchMovieDataSourceFactory).updateArgs(
                     year,
                     filmQuery,
