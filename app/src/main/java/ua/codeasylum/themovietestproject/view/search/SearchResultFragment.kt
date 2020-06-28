@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import ua.codeasylum.themovietestproject.view.ListFragment
 import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 import ua.codeasylum.themovietestproject.viewmodel.SearchResultViewModel
 
-class SearchResultFragment : ListFragment() {
+class SearchResultFragment : ListFragment<SearchResultViewModel>() {
 
-    private lateinit var searchResultViewModel: SearchResultViewModel
     private val args: SearchResultFragmentArgs by navArgs()
 
 
@@ -20,19 +18,19 @@ class SearchResultFragment : ListFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = getBinding(inflater, container!!).apply {
-        searchResultViewModel =
-            ViewModelProvider(
-                activity!!.viewModelStore,
-                factory
-            )[SearchResultViewModel::class.java]
-        searchResultViewModel.args = args
-        lifecycleOwner = this@SearchResultFragment.viewLifecycleOwner
-        viewModel = searchResultViewModel
-    }.root
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return getBinding(inflater, container!!).apply {
+            this@SearchResultFragment.viewModel.args = args
+            lifecycleOwner = this@SearchResultFragment.viewLifecycleOwner
+            this@SearchResultFragment.viewModel
+        }.root
+    }
 
     override fun getViewModel(): MovieListViewModel =
-        searchResultViewModel
+        viewModel
+
+    override fun getClassType(): Class<SearchResultViewModel> = SearchResultViewModel::class.java
 
 
 }

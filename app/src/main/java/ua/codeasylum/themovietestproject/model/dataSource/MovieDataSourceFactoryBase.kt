@@ -6,6 +6,6 @@ import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 
 abstract class MovieDataSourceFactoryBase : DataSource.Factory<Int, MovieResult>() {
 
-     abstract fun passErrorLiveData(mutableLiveData: MutableLiveData<String>)
+     abstract fun passErrorLiveData(mutableLiveData: MutableLiveData<Error>)
 
 }

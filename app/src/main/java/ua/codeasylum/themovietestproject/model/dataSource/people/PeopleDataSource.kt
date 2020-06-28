@@ -10,7 +10,7 @@ class PeopleDataSource(
 ) : ItemKeyedDataSource<Int, Person>() {
 
     private var isEnd = false
-    private lateinit var errorLiveData: MutableLiveData<String>
+    private lateinit var errorLiveData: MutableLiveData<Error>
     private var name: String = ""
 
     override fun loadInitial(
@@ -41,7 +41,7 @@ class PeopleDataSource(
                 callback.onResult(peopleManager.searchPeople(name, page).blockingGet())
             } catch (e: Exception) {
                 if (::errorLiveData.isInitialized)
-                    errorLiveData.postValue(e.message)
+                    errorLiveData.postValue(Error(e))
             }
     }
 
@@ -50,7 +50,7 @@ class PeopleDataSource(
         isEnd = false
     }
 
-    fun passErrorLiveData(liveData: MutableLiveData<String>) {
+    fun passErrorLiveData(liveData: MutableLiveData<Error>) {
         errorLiveData = liveData
     }
 

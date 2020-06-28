@@ -1,6 +1,5 @@
 package ua.codeasylum.themovietestproject.viewmodel
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -26,7 +25,7 @@ class SearchViewModel @Inject constructor(
     private val genreManager: GenreManagerInterface,
     private val navController: NavController,
     private val peopleDataSourceFactory: PeopleDataSourceFactory
-) : AndroidViewModel(app) {
+) : BaseViewModel(app) {
 
     val enteredPersonNameObserver: Observer<String> by lazy {
         observeEnteredPersonName()
@@ -55,7 +54,6 @@ class SearchViewModel @Inject constructor(
     var foundPeople: LiveData<PagedList<Person>> = MutableLiveData()
     val personSearchedName = MutableLiveData("").debounce(500L)
     val haveToNotifyPeopleBindingAdapter = MutableLiveData(1)
-    val error = MutableLiveData("")
     val isAdult = MutableLiveData(false)
 
     init {
@@ -76,7 +74,8 @@ class SearchViewModel @Inject constructor(
                     year, movieQuery, genresId, personId, isAdult
                 )
             ) else {
-            error.value = getApplication<App>().getString(R.string.fill_in_at_least_one_field)
+            error.value =
+                Error(getApplication<App>().getString(R.string.fill_in_at_least_one_field))
 
         }
     }
@@ -101,7 +100,7 @@ class SearchViewModel @Inject constructor(
                 allGenres.value?.addAll(it.genres)
                 allGenres.notifyObserver()
             }, {
-                error.value = it.message
+                error.value = Error(it)
             })
 
 
@@ -111,7 +110,7 @@ class SearchViewModel @Inject constructor(
         try {
             updateDataSourceFactoryAndSearchQuery(personSearchedName.value ?: "")
         } catch (e: Exception) {
-            error.value = e.message
+            error.value = Error(e)
         }
 
 

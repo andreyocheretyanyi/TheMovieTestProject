@@ -1,21 +1,44 @@
 package ua.codeasylum.themovietestproject.base
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import javax.inject.Inject
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import ua.codeasylum.themovietestproject.viewmodel.BaseViewModel
 
-open class BaseFragment : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel> : InjectableFragment() {
 
-    protected lateinit var factory : ViewModelFactory
-    @Inject set
+    protected lateinit var viewModel: VM
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        injectSelf()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val v = super.onCreateView(inflater, container, savedInstanceState)
+        viewModel =
+            ViewModelProvider(
+                activity!!.viewModelStore,
+                factory
+            )[getClassType()]
+        return v
     }
 
-
-    private fun injectSelf() {
-        (activity as BaseActivity).activityComponent.inject(this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeError()
     }
+
+    private fun observeError() {
+        viewModel.error.observe(this.viewLifecycleOwner, Observer {
+            it.message?.apply {
+                showToast(this)
+            }
+        })
+    }
+
+    abstract fun getClassType(): Class<VM>
+
 }

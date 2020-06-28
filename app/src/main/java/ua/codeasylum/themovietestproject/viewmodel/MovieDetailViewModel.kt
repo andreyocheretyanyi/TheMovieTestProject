@@ -1,17 +1,14 @@
 package ua.codeasylum.themovietestproject.viewmodel
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ua.codeasylum.themovietestproject.App
-import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.model.repository.manager.GenreManagerInterface
-import ua.codeasylum.themovietestproject.model.repository.manager.MovieManagerInterface
 import ua.codeasylum.themovietestproject.view.MovieDetailFragmentArgs
 import javax.inject.Inject
 
 class MovieDetailViewModel @Inject constructor(
     app: App, private val genresManager: GenreManagerInterface
-) : AndroidViewModel(app) {
+) : BaseViewModel(app) {
     val movieTitle = MutableLiveData("")
     val movieImage = MutableLiveData("")
     val movieDescription = MutableLiveData("")
@@ -19,7 +16,6 @@ class MovieDetailViewModel @Inject constructor(
     val rDate = MutableLiveData("")
     val rating = MutableLiveData("")
     val genres = MutableLiveData("")
-    val error = MutableLiveData("")
 
     fun performArgs(movieDetailFragmentArgs: MovieDetailFragmentArgs) {
         with(movieDetailFragmentArgs.movie) {
@@ -34,7 +30,7 @@ class MovieDetailViewModel @Inject constructor(
                 .subscribe({
                     genres.value = it
                 }, {
-                    error.value = it.message
+                    error.value = Error(it)
                 })
         }
     }

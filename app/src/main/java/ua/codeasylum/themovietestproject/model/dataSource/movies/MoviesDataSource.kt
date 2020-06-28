@@ -10,7 +10,7 @@ class MoviesDataSource(
     private val movieManager: MovieManagerInterface
 ) : ItemKeyedDataSource<Int, MovieResult>() {
 
-    private lateinit var errorLiveData: MutableLiveData<String>
+    private lateinit var errorLiveData: MutableLiveData<Error>
 
     enum class RequestType {
         All, TopRated, Upcoming
@@ -53,11 +53,11 @@ class MoviesDataSource(
                 )
             } catch (e: Exception) {
                 if (::errorLiveData.isInitialized)
-                    errorLiveData.postValue(e.message)
+                    errorLiveData.postValue(Error(e))
             }
     }
 
-    fun passErrorLiveData(mutableLiveData: MutableLiveData<String>) {
+    fun passErrorLiveData(mutableLiveData: MutableLiveData<Error>) {
         errorLiveData = mutableLiveData
     }
 }

@@ -12,7 +12,7 @@ class MoviesDataSourceFactory(
 
     override fun create(): DataSource<Int, MovieResult> = movieDataSource
 
-    override fun passErrorLiveData(mutableLiveData: MutableLiveData<String>) {
+    override fun passErrorLiveData(mutableLiveData: MutableLiveData<Error>) {
         movieDataSource.passErrorLiveData(mutableLiveData)
     }
 

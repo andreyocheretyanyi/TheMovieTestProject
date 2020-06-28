@@ -3,7 +3,7 @@ package ua.codeasylum.themovietestproject.di.component
 import android.app.Activity
 import dagger.BindsInstance
 import dagger.Component
-import ua.codeasylum.themovietestproject.base.BaseFragment
+import ua.codeasylum.themovietestproject.base.InjectableFragment
 import ua.codeasylum.themovietestproject.di.module.ActivityModule
 import ua.codeasylum.themovietestproject.di.module.RepositoryModule
 import ua.codeasylum.themovietestproject.di.module.ViewModelModule
@@ -17,7 +17,7 @@ import ua.codeasylum.themovietestproject.di.scope.ActivityScope
 )
 interface ActivityComponent {
 
-    fun inject(fragment: BaseFragment)
+    fun inject(fragment: InjectableFragment)
 
     @Component.Builder
     interface Builder {

@@ -1,6 +1,5 @@
 package ua.codeasylum.themovietestproject.viewmodel
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -18,7 +17,7 @@ abstract class MovieListViewModel(
     protected val navigation: NavController,
     val movieManager: MovieManagerInterface,
     dataSourceFactory: MovieDataSourceFactoryBase
-) : AndroidViewModel(app) {
+) : BaseViewModel(app) {
 
     protected var dataSourceFactory: MovieDataSourceFactoryBase? = null
         set(value) {
@@ -30,7 +29,6 @@ abstract class MovieListViewModel(
 
     lateinit var movies: LiveData<PagedList<MovieResult>>
     val haveToNotifyBindingAdapter = MutableLiveData(1)
-    val error = MutableLiveData("")
 
     init {
         this.dataSourceFactory = dataSourceFactory
@@ -50,7 +48,7 @@ abstract class MovieListViewModel(
             .setEnablePlaceholders(false)
             .build()
         movies =
-            LivePagedListBuilder<Int, MovieResult>(dataSourceFactory, config).build()
+            LivePagedListBuilder(dataSourceFactory, config).build()
         haveToNotifyBindingAdapter.notifyObserver()
     }
 

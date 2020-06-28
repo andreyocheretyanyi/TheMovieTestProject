@@ -24,7 +24,7 @@ class SearchMovieDataSourceFactory(
 
     override fun create(): DataSource<Int, MovieResult> = searchMovieDataSource
 
-    override fun passErrorLiveData(mutableLiveData: MutableLiveData<String>) {
+    override fun passErrorLiveData(mutableLiveData: MutableLiveData<Error>) {
         searchMovieDataSource.passErrorLiveData(mutableLiveData)
     }
 

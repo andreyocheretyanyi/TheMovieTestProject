@@ -17,7 +17,7 @@ class SearchMovieDataSource(
     private lateinit var genresIds: String
     private lateinit var personId: String
     private var isAdult: Boolean = false
-    private lateinit var errorLiveData: MutableLiveData<String>
+    private lateinit var errorLiveData: MutableLiveData<Error>
 
     fun updateArgs(
         year: String,
@@ -73,11 +73,11 @@ class SearchMovieDataSource(
                 )
             } catch (e: Exception) {
                 if (::errorLiveData.isInitialized)
-                    errorLiveData.postValue(e.message)
+                    errorLiveData.postValue(Error(e))
             }
     }
 
-    fun passErrorLiveData(mutableLiveData: MutableLiveData<String>) {
+    fun passErrorLiveData(mutableLiveData: MutableLiveData<Error>) {
         errorLiveData = mutableLiveData
     }
 }

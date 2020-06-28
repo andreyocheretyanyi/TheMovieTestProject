@@ -4,30 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import ua.codeasylum.themovietestproject.view.ListFragment
 import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
 import ua.codeasylum.themovietestproject.viewmodel.home.AllMoviesViewModel
 
-class AllMoviesFragment : ListFragment() {
-
-    private lateinit var allMoviesViewModel: AllMoviesViewModel
+class AllMoviesFragment : ListFragment<AllMoviesViewModel>() {
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = getBinding(inflater, container).apply {
-        allMoviesViewModel =
-            ViewModelProvider(
-                activity!!.viewModelStore,
-                factory
-            )[AllMoviesViewModel::class.java]
-        lifecycleOwner = this@AllMoviesFragment.viewLifecycleOwner
-        viewModel = allMoviesViewModel
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return getBinding(inflater, container).apply {
+            lifecycleOwner = this@AllMoviesFragment.viewLifecycleOwner
+            viewModel = this@AllMoviesFragment.viewModel
 
-    }.root
+        }.root
+    }
 
-    override fun getViewModel(): MovieListViewModel = allMoviesViewModel
+    override fun getViewModel(): MovieListViewModel = viewModel
+    override fun getClassType(): Class<AllMoviesViewModel> = AllMoviesViewModel::class.java
 }
