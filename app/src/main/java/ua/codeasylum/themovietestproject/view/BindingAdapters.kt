@@ -1,6 +1,7 @@
 package ua.codeasylum.themovietestproject.view
 
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
@@ -84,12 +85,17 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("app:imageUrl")
     fun bindImageUrl(imageView: ImageView, url: String?) {
-        Picasso.get()
-            .load("https://image.tmdb.org/t/p/original${url ?: ""}")
-            .placeholder(R.drawable.movies_paceholder)
-            .transform(RoundTransformation(10F, 10, 10F, 10))
-            .resize(400, 600)
-            .into(imageView)
+        imageView.viewTreeObserver.addOnGlobalLayoutListener {
+            Picasso.get()
+                .load("https://image.tmdb.org/t/p/original${url ?: ""}")
+                .placeholder(R.drawable.movies_paceholder)
+                .resize(imageView.width,imageView.height)
+                .transform(RoundTransformation(10F, 10, 10F, 10))
+                .into(imageView)
+            imageView.viewTreeObserver.removeOnGlobalLayoutListener {
+            }
+        }
+
     }
 
     @JvmStatic

@@ -14,8 +14,8 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/rounded_item_background"
         android:elevation="10dp"
@@ -23,11 +23,10 @@
         android:orientation="vertical">
 
 
-        <ImageView
+        <ua.codeasylum.themovietestproject.view.custom.MovieImageView
             android:background="@drawable/rounded_item_background"
-            android:scaleType="fitXY"
-            android:layout_weight="1"
             android:id="@+id/iv_poster"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:imageUrl="@{movieResult.posterPath}"
@@ -36,6 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/ll_info"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

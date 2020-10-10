@@ -1,0 +1,22 @@
+package ua.codeasylum.themovietestproject.view.custom
+
+import android.content.Context
+import android.util.AttributeSet
+
+class MovieImageView : androidx.appcompat.widget.AppCompatImageView{
+
+    constructor(context: Context) : super(context)
+    constructor (context: Context, attrs: AttributeSet?) : super(context, attrs)
+    constructor (
+        context: Context,
+        attrs: AttributeSet?,
+        defStyleAttr: Int
+    ) : super(context, attrs, defStyleAttr)
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec)
+        val width = MeasureSpec.getSize(widthMeasureSpec)
+        val height = MeasureSpec.getSize((widthMeasureSpec*1.5).toInt())
+        setMeasuredDimension(width, height)
+    }
+}

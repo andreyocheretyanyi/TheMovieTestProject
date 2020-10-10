@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import ua.codeasylum.themovietestproject.R
 import ua.codeasylum.themovietestproject.databinding.ItemMovieBinding
 import ua.codeasylum.themovietestproject.model.networkDto.MovieResult
 import ua.codeasylum.themovietestproject.viewmodel.MovieListViewModel
@@ -18,7 +19,7 @@ class MovieRecyclerAdapter(val parentViewModel: MovieListViewModel) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: ItemMovieBinding = ItemMovieBinding.inflate(inflater, parent, false)
+        val binding: ItemMovieBinding = DataBindingUtil.inflate(inflater, R.layout.item_movie,parent,false)
         return MovieViewHolder(binding.root)
     }
 
